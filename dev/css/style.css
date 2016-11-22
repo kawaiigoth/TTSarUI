@@ -11,13 +11,8 @@ a:focus,
 a:hover {
   text-decoration: none;
 }
-ul {
-  list-style: none;
-  padding: 0;
-}
-.social-icon {
-  width: 30px;
-}
+
+
 @media screen and (min-width: 980px) {
   /* Desktop */
 }
@@ -27,52 +22,53 @@ ul {
 @media screen and (max-width: 500px) {
   /* Mobile */
 }
-.route-box-wrap {
-  margin-left: 10px;
+.route-box {
   overflow: hidden;
-  display: inline-block;
   position: relative;
   min-width: 50px;
-  width: 7%;
+  width: 67px;
+  cursor: pointer;
   /* desired width */
 }
-.route-box-wrap .route-box {
+.route-box__text {
+  color: #fff;
+  font-weight: 700;
+  font-size: 24px;
+}
+.route-box__inner {
   position: absolute;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 35px;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
 }
-.route-box-wrap .route-box span {
+.route-box__cell {
   display: table-cell;
   text-align: center;
   vertical-align: middle;
-  color: white;
 }
-.route-box-wrap .route-box div {
+.route-box__table {
   display: table;
   width: 100%;
   height: 100%;
 }
-.route-box-wrap:before {
+.route-box:before {
   content: "";
   display: block;
   padding-top: 100%;
   /* initial ratio of 1:1*/
 }
+
 .route-list {
   list-style: none;
   padding: 0;
   text-align: right;
 }
-.route-list li {
+.route-list__element {
   margin: 5px 10px;
 }
-.route-list .route-box-wrap {
-  cursor: pointer;
+.route-list__element_horizontal {
+  display: inline-block;
 }
 .inform-window {
   display: table;
@@ -80,31 +76,45 @@ ul {
   width: 100%;
   padding: 0;
 }
-.inform-window > div {
+
+.inform-window_stoped{
+  background-image: linear-gradient(to bottom, #fd9a7f 0, #fec1b1 100%);
+}
+
+.inform-window_duty{
+  background-image: linear-gradient(to bottom, #fbda95 0, #fdebc6 100%);
+}
+
+.inform-window_normal{
+  background-image: linear-gradient(to bottom, #95d8ce 0, #bae6df 100%);
+}
+
+.inform-window__way {
   display: table-cell;
   vertical-align: middle;
-}
-.inform-window .inform-way {
   padding: 10px 16px;
   width: 20%;
 }
-.inform-window .inform-way .route-box-wrap {
-  margin: 5px 0 0 0;
-  width: 37%;
+.inform-window__route-box {
   -webkit-box-shadow: 2px 4px 3px -1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 2px 4px 3px -1px rgba(0, 0, 0, 0.5);
   box-shadow: 2px 4px 3px -1px rgba(0, 0, 0, 0.5);
 }
-.inform-window .inform-message {
+.inform-window__actions{
+  display: table-cell;
+  vertical-align: middle;
+}
+.inform-window__message {
+  display: table-cell;
+  vertical-align: middle;
   width: 70%;
   padding: 10px 20px ;
 }
-.inform-window .inform-message span {
+.inform-window__text {
   font-size: 20px;
+  color: #000;
 }
-/*.inform-window .inform-message span{
-  font-size: 20px;
-}*/
+
 .glyphicon {
   padding: 5px;
   font-size: 30px;
@@ -117,15 +127,7 @@ ul {
 body > footer {
   margin-bottom: 20px;
 }
-.well-stoped {
-  background-image: linear-gradient(to bottom, #fd9a7f 0, #fec1b1 100%);
-}
-.well-duty {
-  background-image: linear-gradient(to bottom, #fbda95 0, #fdebc6 100%);
-}
-.well-normal {
-  background-image: linear-gradient(to bottom, #95d8ce 0, #bae6df 100%);
-}
+
 .adj-routes {
   float: left;
   width: 20%;
@@ -150,7 +152,7 @@ body > footer {
   width: 20%;
   padding: 0 2%;
   height: 500px;
-  
+
 }
 .users-messages-message {
   border: 1px solid black;
@@ -180,11 +182,15 @@ body > footer {
 }
 
 .header{
-position: relative;
-    text-align: center;
+  position: relative;
+  text-align: center;
 }
-.logo {
-    position: absolute;
-    top: 50px;
-    right: 0;
+.header__logo {
+  position: absolute;
+  top: 50px;
+  right: 0;
+}
+
+.social-icon{
+  width: 30px;
 }

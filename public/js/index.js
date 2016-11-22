@@ -54,7 +54,11 @@ webpackJsonp([0,2],[
 	            var info = props.routeList,
 	                fun = props.action;
 	            return info.map(function (route) {
-	                return _react2.default.createElement(_route.View, { key: route.way, status: route.status, way: route.way, type: route.type, action: fun });
+	                return _react2.default.createElement(
+	                    'li',
+	                    { key: route.type + "_" + route.way, className: 'route-list__element route-list__element_horizontal' },
+	                    _react2.default.createElement(_route.View, { status: route.status, way: route.way, type: route.type, action: fun })
+	                );
 	            });
 	        }
 	    }, {
@@ -169,45 +173,30 @@ webpackJsonp([0,2],[
 	    }, {
 	        key: 'drawData',
 	        value: function drawData(data) {
-	            var well = "well-" + data.status;
+	            var well = "inform-window inform-window_" + data.status;
 	            return _react2.default.createElement(
 	                'div',
-	                { className: "well inform-window " + well },
+	                { className: "well " + well },
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'inform-way' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'route-box-wrap' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: "route-box " + data.status },
-	                            _react2.default.createElement(
-	                                'div',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    null,
-	                                    data.route.way
-	                                )
-	                            )
-	                        )
-	                    )
+	                    { className: 'inform-window__way' },
+	                    _react2.default.createElement(_route.View, { style: "inform-window__route-box", status: data.status, way: data.route.way, type: data.route.type })
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'inform-message' },
+	                    { className: 'inform-window__message' },
 	                    _react2.default.createElement(
 	                        'span',
-	                        null,
+	                        { className: 'inform-window__text' },
 	                        data.message
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'inform-actions' },
+	                    { className: 'inform-window__actions' },
 	                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-star', 'aria-hidden': 'true' }),
-	                    _react2.default.createElement('span', { id: data.route.type + "_" + data.route.way, 'data-toggle': 'modal', 'data-target': '#SenderModal', className: 'glyphicon glyphicon-warning-sign', 'aria-hidden': 'true' })
+	                    _react2.default.createElement('span', { id: data.route.type + "_" + data.route.way, 'data-toggle': 'modal', 'data-target': '#SenderModal',
+	                        className: 'glyphicon glyphicon-warning-sign', 'aria-hidden': 'true' })
 	                )
 	            );
 	        }
@@ -21811,26 +21800,47 @@ webpackJsonp([0,2],[
 	        value: function render() {
 	            var _this2 = this;
 
-	            return _react2.default.createElement(
-	                'li',
-	                { id: this.props.type + "_" + this.props.way, className: 'route-box-wrap',
-	                    onClick: function onClick() {
-	                        _this2.props.action(_this2.props.type + "_" + _this2.props.way);
-	                    } },
-	                _react2.default.createElement(
+	            var routeBox = this.props.style ? "route-box " + this.props.style : "route-box";
+	            if (this.props.action) {
+	                return _react2.default.createElement(
 	                    'div',
-	                    { className: "route-box " + this.props.status },
+	                    { id: this.props.type + "_" + this.props.way, className: routeBox,
+	                        onClick: function onClick() {
+	                            _this2.props.action(_this2.props.type + "_" + _this2.props.way);
+	                        } },
 	                    _react2.default.createElement(
 	                        'div',
-	                        null,
+	                        { className: "route-box__inner " + this.props.status },
 	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            this.props.way
+	                            'div',
+	                            { className: 'route-box__table' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'route-box__cell route-box__text' },
+	                                this.props.way
+	                            )
 	                        )
 	                    )
-	                )
-	            );
+	                );
+	            } else {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { id: this.props.type + "_" + this.props.way, className: routeBox },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: "route-box__inner " + this.props.status },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'route-box__table' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'route-box__cell route-box__text' },
+	                                this.props.way
+	                            )
+	                        )
+	                    )
+	                );
+	            }
 	        }
 	    }]);
 

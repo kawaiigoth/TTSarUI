@@ -2,22 +2,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {View} from './route.jsx';
-class Parent extends React.Component{
+class Parent extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.renderRoutes = this.renderRoutes.bind(this);
     }
 
-    renderRoutes(props){
+    renderRoutes(props) {
         var info = props.routeList,
             fun = props.action;
-        return(
+        return (
             info.map(route =>
-                <View key={route.way} status={route.status} way={route.way} type={route.type} action={fun}/>)
+                <li key={route.type + "_" + route.way} className="route-list__element route-list__element_horizontal">
+                    <View status={route.status} way={route.way} type={route.type} action={fun}/>
+                </li>)
         );
+
+
     }
-    render(){
+
+    render() {
         let routes = this.renderRoutes(this.props);
         return (
             <Child>
@@ -27,10 +32,11 @@ class Parent extends React.Component{
 
 }
 
-class Child extends React.Component{
-    constructor(props){
+class Child extends React.Component {
+    constructor(props) {
         super(props);
     }
+
     render() {
 
         return (
@@ -42,21 +48,22 @@ class Child extends React.Component{
 
 }
 
-class Inform extends React.Component{
+class Inform extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.getInfo = this.getInfo.bind(this);
         this.drawData = this.drawData.bind(this);
         this.state = {
-            data : undefined
+            data: undefined
         }
     }
-    getInfo(id){
+
+    getInfo(id) {
         var Id = id;
         var self = this;
 
-        function getRoute(Id){
+        function getRoute(Id) {
             return "../dev/get_responses/get_status_info.json"
         }
 
@@ -79,12 +86,15 @@ class Inform extends React.Component{
         }
 
         function statusParse(data) {
-            switch (data){
-                case 1: data = 'normal';
+            switch (data) {
+                case 1:
+                    data = 'normal';
                     break;
-                case 2: data = 'duty';
+                case 2:
+                    data = 'duty';
                     break;
-                case 3: data = 'stoped';
+                case 3:
+                    data = 'stoped';
                     break;
 
             }
@@ -92,9 +102,9 @@ class Inform extends React.Component{
             return data;
         }
 
-        function setData(data){
+        function setData(data) {
             console.log(data)
-            self.setState({data:data})
+            self.setState({data: data})
 
         }
 
@@ -104,49 +114,47 @@ class Inform extends React.Component{
             .then(json)
             .then(typeParse)
             .then(setData)
-            .catch(function(error) {
+            .catch(function (error) {
                 console.log('Request failed', error);
             });
 
 
     }
 
-    drawData(data){
-        var well= "well-"+data.status;
-        return(
+    drawData(data) {
+        var well = "inform-window inform-window_" + data.status;
+        return (
 
-            <div className={"well inform-window "+well}>
-                <div className="inform-way">
-                    <div className="route-box-wrap">
-                        <div className={"route-box " + data.status}><div><span>{data.route.way}</span></div></div>
-                    </div>
+            <div className={"well " + well}>
+                <div className="inform-window__way">
+                    <View style={"inform-window__route-box"} status={data.status} way={data.route.way} type={data.route.type}/>
                 </div>
-                <div className="inform-message">
-                <span>
+                <div className="inform-window__message">
+                <span className="inform-window__text">
                     {data.message}
                 </span>
                 </div>
-                <div className="inform-actions">
+                <div className="inform-window__actions">
                     <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <span id={data.route.type+"_"+data.route.way} data-toggle="modal" data-target="#SenderModal" className="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                    <span id={data.route.type + "_" + data.route.way} data-toggle="modal" data-target="#SenderModal"
+                          className="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
                 </div>
             </div>
         );
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps() {
         this.getInfo(this.props.inform);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getInfo(this.props.inform);
     }
 
-    render(){
+    render() {
 
-        if(this.state.data == undefined)
-        {
-            return(
+        if (this.state.data == undefined) {
+            return (
                 <div className="">Loading</div>
             )
         }
@@ -159,22 +167,22 @@ class Inform extends React.Component{
 
 }
 
-class App extends  React.Component{
-    constructor(props){
+class App extends React.Component {
+    constructor(props) {
         super(props);
         this.openInform = this.openInform.bind(this);
         this.state = {
-            tramRoutes  : undefined,
-            trollRoutes : undefined,
-            informData  : undefined
+            tramRoutes: undefined,
+            trollRoutes: undefined,
+            informData: undefined
         }
     }
 
-    openInform(id){
+    openInform(id) {
         this.setState({informData: id});
     }
 
-    loadData(){
+    loadData() {
         var routeStatus = this.props.routesStatus;
         var self = this;
 
@@ -198,14 +206,16 @@ class App extends  React.Component{
 
         function statusParse(data) {
             var d = data;
-            for(var i in d)
-            {
-                switch (d[i].status){
-                    case 1: d[i].status = 'normal'
+            for (var i in d) {
+                switch (d[i].status) {
+                    case 1:
+                        d[i].status = 'normal'
                         break;
-                    case 2: d[i].status = 'duty'
+                    case 2:
+                        d[i].status = 'duty'
                         break;
-                    case 3: d[i].status = 'stoped'
+                    case 3:
+                        d[i].status = 'stoped'
                         break;
                 }
             }
@@ -218,22 +228,21 @@ class App extends  React.Component{
             .then(status)
             .then(json)
             .then(typeParse)
-            .catch(function(error) {
+            .catch(function (error) {
                 console.log('Request failed', error);
             });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.loadData()
     }
 
-    render(){
-        if ( this.state.tramRoutes == undefined || this.state.trollRoutes == undefined) {
+    render() {
+        if (this.state.tramRoutes == undefined || this.state.trollRoutes == undefined) {
             return <div>Loading...</div>
         }
 
-        if(this.state.informData != undefined)
-        {
+        if (this.state.informData != undefined) {
             return (
                 <div>
                     <Inform inform={this.state.informData}/>
@@ -247,7 +256,7 @@ class App extends  React.Component{
 
             );
         }
-        else{
+        else {
             return (
                 <div>
                     <h2>Маршруты</h2>
