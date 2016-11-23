@@ -1,1 +1,1 @@
-{"version":3,"file":"js/style.js","sources":["webpack:///./css/style.css"],"sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./css/style.css\n// module id = 0\n// module chunks = 1"],"mappings":";;;;AAAA;;;","sourceRoot":""}
+{"version":3,"file":"js/style.js","sources":["webpack:///./css/bem.css"],"sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./css/bem.css\n// module id = 0\n// module chunks = 2"],"mappings":";;;;AAAA;;;","sourceRoot":""}

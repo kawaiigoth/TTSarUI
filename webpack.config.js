@@ -10,7 +10,8 @@ module.exports = {
     context: __dirname + '/dev',
     entry: {
         index: "./js/main.js",
-        style: "./css/style.css"
+        style: "./css/bem.css",
+        admin: "./js/admin_page.js"
     },
     output: {
         path: __dirname + '/public/',

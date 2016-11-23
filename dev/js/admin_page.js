@@ -1,0 +1,1 @@
+import {Parent} from './admin.jsx';

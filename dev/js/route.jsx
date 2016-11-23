@@ -6,7 +6,7 @@ export class View extends React.Component{
         super(props)
     }
     render(){
-        var routeBox = this.props.style ? "route-box " + this.props.style : "route-box";
+        let routeBox = this.props.style ? "route-box " + this.props.style : "route-box";
         if(this.props.action){
             return(
                 <div id={this.props.type+"_"+this.props.way} className={routeBox}

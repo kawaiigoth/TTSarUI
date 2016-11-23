@@ -1,17 +1,353 @@
-webpackJsonp([1,3],[
+webpackJsonp([0,3],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _index = __webpack_require__(182);
+	var _admin = __webpack_require__(1);
 
-	var _index2 = _interopRequireDefault(_index);
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(33);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _Inform = __webpack_require__(179);
+
+	var _List = __webpack_require__(181);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Routes = function (_React$Component) {
+	    _inherits(Routes, _React$Component);
+
+	    function Routes(props) {
+	        _classCallCheck(this, Routes);
+
+	        var _this = _possibleConstructorReturn(this, (Routes.__proto__ || Object.getPrototypeOf(Routes)).call(this, props));
+
+	        _this.state = {
+	            routes: undefined
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Routes, [{
+	        key: 'loadData',
+	        value: function loadData() {
+	            var routeList = this.props.route;
+	            var self = this;
+
+	            function statusDec(status) {
+
+	                switch (status) {
+	                    case 1:
+	                        status = 'normal';
+	                        break;
+	                    case 2:
+	                        status = 'duty';
+	                        break;
+	                    case 3:
+	                        status = 'stoped';
+	                        break;
+	                }
+	                return status;
+	            }
+
+	            function statusParse(data) {
+	                var d = data;
+
+	                for (var i in d) {
+	                    d[i].status = statusDec(d[i].status);
+	                }
+	                return d;
+	            }
+
+	            routeList = statusParse(routeList);
+
+	            self.setState({ routes: routeList });
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps() {
+	            this.loadData();
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.loadData();
+	        }
+	    }, {
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            this.loadData();
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+
+	            return _react2.default.createElement(_List.List, { horizontal: false, routeList: this.state.routes });
+	        }
+	    }]);
+
+	    return Routes;
+	}(_react2.default.Component);
+
+	var Messages = function (_React$Component2) {
+	    _inherits(Messages, _React$Component2);
+
+	    function Messages(props) {
+	        _classCallCheck(this, Messages);
+
+	        var _this2 = _possibleConstructorReturn(this, (Messages.__proto__ || Object.getPrototypeOf(Messages)).call(this, props));
+
+	        _this2.state = {
+	            messages: undefined
+	        };
+
+	        return _this2;
+	    }
+
+	    _createClass(Messages, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var messageList = this.props.messageList;
+	            this.setState({ messages: messageList });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+
+	            function getDate(date) {
+	                var options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+	                return new Date(date).toLocaleDateString('ru-RU', options);
+	            }
+
+	            if (this.state.messages != undefined) {
+	                return _react2.default.createElement(
+	                    'ul',
+	                    { className: 'users-messages' },
+	                    this.state.messages.map(function (message) {
+	                        return _react2.default.createElement(
+	                            'li',
+	                            { key: message.message_id, id: message.message_id,
+	                                className: "users-messages__message " + message.status },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'users-messages__message__image' },
+	                                _react2.default.createElement(
+	                                    'a',
+	                                    { className: 'photo', href: message.photo.replace("thumbs", "fullsize"),
+	                                        title: message.message },
+	                                    _react2.default.createElement('img', { src: message.photo, width: '50', height: '50', alt: 'photo' })
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'users-messages__message__info' },
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'users-messages__message__info__text' },
+	                                    message.message
+	                                ),
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'users-messages__message__info__time' },
+	                                    getDate(message.datetime)
+	                                )
+	                            )
+	                        );
+	                    })
+	                );
+	            } else {
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    'Loading...'
+	                );
+	            }
+	        }
+	    }]);
+
+	    return Messages;
+	}(_react2.default.Component);
+
+	var Controls = function (_React$Component3) {
+	    _inherits(Controls, _React$Component3);
+
+	    function Controls() {
+	        _classCallCheck(this, Controls);
+
+	        return _possibleConstructorReturn(this, (Controls.__proto__ || Object.getPrototypeOf(Controls)).apply(this, arguments));
+	    }
+
+	    _createClass(Controls, [{
+	        key: 'render',
+	        value: function render() {
+
+	            return _react2.default.createElement('div', { className: 'control' });
+	        }
+	    }]);
+
+	    return Controls;
+	}(_react2.default.Component);
+
+	var Parent = function (_React$Component4) {
+	    _inherits(Parent, _React$Component4);
+
+	    function Parent(props) {
+	        _classCallCheck(this, Parent);
+
+	        var _this4 = _possibleConstructorReturn(this, (Parent.__proto__ || Object.getPrototypeOf(Parent)).call(this, props));
+
+	        _this4.loadData = _this4.loadData.bind(_this4);
+	        _this4.state = {
+	            tramRoutes: undefined,
+	            trollRoutes: undefined,
+	            info: undefined,
+	            messages: undefined
+	        };
+	        return _this4;
+	    }
+
+	    _createClass(Parent, [{
+	        key: 'loadData',
+	        value: function loadData() {
+	            var routeInfo = this.props.routeInfo;
+	            var messages = this.props.messages;
+	            var status_info = this.props.status;
+	            var self = this;
+
+	            function status(response) {
+	                if (response.status >= 200 && response.status < 300) {
+	                    return Promise.resolve(response);
+	                } else {
+	                    return Promise.reject(new Error(response.statusText));
+	                }
+	            }
+
+	            function json(response) {
+	                return response.json();
+	            }
+
+	            function typeParse(data) {
+	                var trolls = [],
+	                    trams = [];
+	                data.map(function (route) {
+	                    if (route.type == 1) {
+	                        trolls.push(route);
+	                    } else {
+	                        trams.push(route);
+	                    }
+	                });
+	                self.setState({ tramRoutes: statusParse(trams), trollRoutes: statusParse(trolls) });
+	            }
+
+	            function statusParse(data) {
+	                var d = data;
+	                for (var i in d) {
+	                    switch (d[i].status) {
+	                        case 1:
+	                            d[i].status = 'normal';
+	                            break;
+	                        case 2:
+	                            d[i].status = 'duty';
+	                            break;
+	                        case 3:
+	                            d[i].status = 'stoped';
+	                            break;
+	                    }
+	                }
+
+	                return d;
+	            }
+
+	            fetch(status_info).then(status).then(json).then(typeParse).catch(function (error) {
+	                console.log('Request failed', error);
+	            });
+
+	            fetch(routeInfo).then(status).then(json).then(function (data) {
+	                self.setState({ info: data });
+	            }).catch(function (error) {
+	                console.log('Request failed', error);
+	            });
+
+	            fetch(messages).then(status).then(json).then(function (data) {
+	                self.setState({ messages: data });
+	            }).catch(function (error) {
+	                console.log('Request failed', error);
+	            });
+	        }
+
+	        /*    componentWillMount() {
+	                this.loadData();
+	            }*/
+
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.loadData();
+	        }
+
+	        /*componentWillReceiveProps() {
+	            this.loadData();
+	        }*/
+
+	    }, {
+	        key: 'render',
+	        value: function render() {
+
+	            if (this.state.info == undefined || this.state.messages == undefined || this.state.tramRoutes == undefined || this.state.trollRoutes == undefined) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    'Loading...'
+	                );
+	            }
+
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'aside',
+	                    { className: 'side-routes' },
+	                    _react2.default.createElement(Routes, { route: this.state.trollRoutes }),
+	                    _react2.default.createElement(Routes, { route: this.state.tramRoutes })
+	                ),
+	                _react2.default.createElement(
+	                    'section',
+	                    { className: 'main' },
+	                    _react2.default.createElement(_Inform.Inform, { inform: this.state.info }),
+	                    _react2.default.createElement(Controls, null),
+	                    _react2.default.createElement('hr', null),
+	                    _react2.default.createElement(Messages, { messageList: this.state.messages })
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Parent;
+	}(_react2.default.Component);
+
+	_reactDom2.default.render(_react2.default.createElement(Parent, { status: '../dev/get_responses/status.json', routeInfo: '../dev/get_responses/get_status_info.json', messages: '../dev/get_responses/messages.json' }), document.getElementById('parent'));
+
 /***/ },
-/* 1 */,
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -21703,244 +22039,6 @@ webpackJsonp([1,3],[
 	    return List;
 	}(_react2.default.Component);
 
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(33);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _List = __webpack_require__(181);
-
-	var _Inform = __webpack_require__(179);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	function requestData(source) {
-	    var parsedData = void 0;
-
-	    return parsedData;
-	}
-
-	var App = function (_React$Component) {
-	    _inherits(App, _React$Component);
-
-	    function App(props) {
-	        _classCallCheck(this, App);
-
-	        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-
-	        _this.openInform = _this.openInform.bind(_this);
-	        _this.getRouteData = _this.getRouteData.bind(_this);
-	        _this.state = {
-	            tramRoutes: undefined,
-	            trollRoutes: undefined,
-	            informData: undefined
-	        };
-	        return _this;
-	    }
-
-	    _createClass(App, [{
-	        key: 'openInform',
-	        value: function openInform(id) {
-	            this.setState({ informData: this.getRouteData('../dev/get_responses/get_status_info.json') });
-	        }
-	    }, {
-	        key: 'getRouteData',
-	        value: function getRouteData(data) {
-
-	            var self = this;
-	            function status(response) {
-	                if (response.status >= 200 && response.status < 300) {
-	                    return Promise.resolve(response);
-	                } else {
-	                    return Promise.reject(new Error(response.statusText));
-	                }
-	            }
-
-	            function json(response) {
-	                return response.json();
-	            }
-
-	            fetch(data).then(status).then(json).then(function (data) {
-	                self.setState({ informData: data });
-	            }).catch(function (error) {
-	                console.log('Request failed', error);
-	            });
-
-	            function typeParse(data) {
-	                var trolls = [],
-	                    trams = [];
-	                data.map(function (route) {
-	                    if (route.type == 1) {
-	                        trolls.push(route);
-	                    } else {
-	                        trams.push(route);
-	                    }
-	                });
-	                self.setState({ tramRoutes: statusParse(trams), trollRoutes: statusParse(trolls) });
-	            }
-
-	            function statusParse(data) {
-	                var d = data;
-	                for (var i in d) {
-	                    switch (d[i].status) {
-	                        case 1:
-	                            d[i].status = 'normal';
-	                            break;
-	                        case 2:
-	                            d[i].status = 'duty';
-	                            break;
-	                        case 3:
-	                            d[i].status = 'stoped';
-	                            break;
-	                    }
-	                }
-
-	                return d;
-	            }
-	        }
-	    }, {
-	        key: 'loadData',
-	        value: function loadData() {
-	            var routeStatus = this.props.routesStatus,
-	                self = this;
-
-	            function status(response) {
-	                if (response.status >= 200 && response.status < 300) {
-	                    return Promise.resolve(response);
-	                } else {
-	                    return Promise.reject(new Error(response.statusText));
-	                }
-	            }
-
-	            function json(response) {
-	                return response.json();
-	            }
-
-	            fetch(routeStatus).then(status).then(json).then(typeParse).catch(function (error) {
-	                console.log('Request failed', error);
-	            });
-
-	            function typeParse(data) {
-	                var trolls = [],
-	                    trams = [];
-	                data.map(function (route) {
-	                    if (route.type == 1) {
-	                        trolls.push(route);
-	                    } else {
-	                        trams.push(route);
-	                    }
-	                });
-	                self.setState({ tramRoutes: statusParse(trams), trollRoutes: statusParse(trolls) });
-	            }
-
-	            function statusParse(data) {
-	                var d = data;
-	                for (var i in d) {
-	                    switch (d[i].status) {
-	                        case 1:
-	                            d[i].status = 'normal';
-	                            break;
-	                        case 2:
-	                            d[i].status = 'duty';
-	                            break;
-	                        case 3:
-	                            d[i].status = 'stoped';
-	                            break;
-	                    }
-	                }
-
-	                return d;
-	            }
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.loadData();
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            if (this.state.tramRoutes == undefined || this.state.trollRoutes == undefined) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    'Loading...'
-	                );
-	            }
-
-	            if (this.state.informData != undefined) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    _react2.default.createElement(_Inform.Inform, { inform: this.state.informData }),
-	                    _react2.default.createElement(
-	                        'h2',
-	                        null,
-	                        '\u041C\u0430\u0440\u0448\u0440\u0443\u0442\u044B'
-	                    ),
-	                    _react2.default.createElement('hr', null),
-	                    _react2.default.createElement(
-	                        'h3',
-	                        null,
-	                        ' \u0422\u0440\u043E\u043B\u043B\u0435\u0439\u0431\u0443\u0441\u044B: '
-	                    ),
-	                    _react2.default.createElement(_List.List, { horizontal: true, routeType: '1', routeList: this.state.trollRoutes, action: this.openInform }),
-	                    _react2.default.createElement(
-	                        'h3',
-	                        null,
-	                        ' \u0422\u0440\u0430\u043C\u0432\u0430\u0438: '
-	                    ),
-	                    _react2.default.createElement(_List.List, { horizontal: true, routeType: '2', routeList: this.state.tramRoutes, action: this.openInform })
-	                );
-	            } else {
-	                return _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    _react2.default.createElement(
-	                        'h2',
-	                        null,
-	                        '\u041C\u0430\u0440\u0448\u0440\u0443\u0442\u044B'
-	                    ),
-	                    _react2.default.createElement('hr', null),
-	                    _react2.default.createElement(
-	                        'h3',
-	                        null,
-	                        ' \u0422\u0440\u043E\u043B\u043B\u0435\u0439\u0431\u0443\u0441\u044B: '
-	                    ),
-	                    _react2.default.createElement(_List.List, { horizontal: true, routeType: '1', routeList: this.state.trollRoutes, action: this.openInform }),
-	                    _react2.default.createElement(
-	                        'h3',
-	                        null,
-	                        ' \u0422\u0440\u0430\u043C\u0432\u0430\u0438: '
-	                    ),
-	                    _react2.default.createElement(_List.List, { horizontal: true, routeType: '2', routeList: this.state.tramRoutes, action: this.openInform })
-	                );
-	            }
-	        }
-	    }]);
-
-	    return App;
-	}(_react2.default.Component);
-
-	_reactDom2.default.render(_react2.default.createElement(App, { routesStatus: '../dev/get_responses/status.json' }), document.getElementById('parent'));
-
 /***/ }
 ]);
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=admin.js.map
