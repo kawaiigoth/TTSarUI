@@ -70,6 +70,7 @@ a:hover {
 .route-list__element_horizontal {
     display: inline-block;
 }
+
 .inform-window {
     display: table;
     height: 100px;
@@ -80,15 +81,12 @@ a:hover {
 .inform-window_stoped{
     background-image: linear-gradient(to bottom, #fd9a7f 0, #fec1b1 100%);
 }
-
 .inform-window_duty{
     background-image: linear-gradient(to bottom, #fbda95 0, #fdebc6 100%);
 }
-
 .inform-window_normal{
     background-image: linear-gradient(to bottom, #95d8ce 0, #bae6df 100%);
 }
-
 .inform-window__way {
     display: table-cell;
     vertical-align: middle;
@@ -122,6 +120,8 @@ a:hover {
     cursor: pointer;
     color: #000000;
 }
+
+
 body > footer {
     margin-bottom: 20px;
 }

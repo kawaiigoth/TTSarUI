@@ -3,9 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Inform} from './Inform.jsx';
 import {List} from './List.jsx';
-class Routes extends React.Component{
+import {Messages} from './messages.jsx';
+import {Control} from './control.jsx';
+class Routes extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             routes: undefined,
@@ -62,84 +64,6 @@ class Routes extends React.Component{
 
         return (
             <List horizontal={false} routeList={this.state.routes}/>
-        );
-    }
-
-}
-
-class Messages extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            messages: undefined
-        }
-
-    }
-
-    componentDidMount() {
-        var messageList = this.props.messageList;
-        this.setState({messages: messageList});
-    }
-
-
-    render() {
-
-
-        function getDate(date) {
-            var options = {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
-            return new Date(date).toLocaleDateString('ru-RU', options);
-        }
-
-
-        if (this.state.messages != undefined) {
-            return (
-                <ul className="users-messages">
-                    {this.state.messages.map(message =>
-                        <li key={message.message_id} id={message.message_id}
-                            className={"users-messages__message " + message.status}>
-                            <div className="users-messages__message__image">
-                                <a className="photo" href={message.photo.replace("thumbs", "fullsize")}
-                                   title={message.message}>
-                                    <img src={message.photo} width="50" height="50" alt="photo"/>
-                                </a>
-                            </div>
-                            <div className="users-messages__message__info">
-                                <span className="users-messages__message__info__text">{message.message}</span>
-                                {/*<span class="users-messages__message__info__name">{message.author}:</span>*/}
-                                <span className="users-messages__message__info__time">{getDate(message.datetime)}</span>
-                            </div>
-                        </li>
-                    )}
-
-                </ul>
-            )
-        }
-        else {
-            return (
-                <div>
-                    Loading...
-                </div>
-            )
-
-        }
-
-
-    }
-
-}
-
-class Controls extends React.Component{
-
-
-    render() {
-
-        return (
-
-            <div className="control">
-
-            </div>
-
         );
     }
 
@@ -239,22 +163,22 @@ class Parent extends React.Component {
         });
     }
 
-/*    componentWillMount() {
-        this.loadData();
-    }*/
+    /*    componentWillMount() {
+     this.loadData();
+     }*/
 
     componentDidMount() {
         this.loadData();
     }
 
     /*componentWillReceiveProps() {
-        this.loadData();
-    }*/
+     this.loadData();
+     }*/
 
     render() {
 
 
-        if (this.state.info == undefined || this.state.messages == undefined || this.state.tramRoutes == undefined || this.state.trollRoutes==undefined) {
+        if (this.state.info == undefined || this.state.messages == undefined || this.state.tramRoutes == undefined || this.state.trollRoutes == undefined) {
             return <div>Loading...</div>
         }
 
@@ -266,8 +190,8 @@ class Parent extends React.Component {
                     <Routes route={this.state.tramRoutes}/>
                 </aside>
                 <section className="main">
-                    <Inform inform={this.state.info}/>
-                    <Controls />
+                    <Inform inform={this.state.info} buttons={false}/>
+                    <Control />
                     <hr />
                     <Messages messageList={this.state.messages}/>
                 </section>
@@ -278,6 +202,7 @@ class Parent extends React.Component {
 }
 
 ReactDOM.render(
-    <Parent status="../dev/get_responses/status.json" routeInfo='../dev/get_responses/get_status_info.json' messages="../dev/get_responses/messages.json"/>,
+    <Parent status="../dev/get_responses/status.json" routeInfo='../dev/get_responses/get_status_info.json'
+            messages="../dev/get_responses/messages.json"/>,
     document.getElementById('parent')
 );

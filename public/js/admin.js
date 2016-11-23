@@ -26,6 +26,10 @@ webpackJsonp([0,3],[
 
 	var _List = __webpack_require__(181);
 
+	var _messages = __webpack_require__(182);
+
+	var _control = __webpack_require__(184);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -109,121 +113,22 @@ webpackJsonp([0,3],[
 	    return Routes;
 	}(_react2.default.Component);
 
-	var Messages = function (_React$Component2) {
-	    _inherits(Messages, _React$Component2);
-
-	    function Messages(props) {
-	        _classCallCheck(this, Messages);
-
-	        var _this2 = _possibleConstructorReturn(this, (Messages.__proto__ || Object.getPrototypeOf(Messages)).call(this, props));
-
-	        _this2.state = {
-	            messages: undefined
-	        };
-
-	        return _this2;
-	    }
-
-	    _createClass(Messages, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var messageList = this.props.messageList;
-	            this.setState({ messages: messageList });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-
-	            function getDate(date) {
-	                var options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-	                return new Date(date).toLocaleDateString('ru-RU', options);
-	            }
-
-	            if (this.state.messages != undefined) {
-	                return _react2.default.createElement(
-	                    'ul',
-	                    { className: 'users-messages' },
-	                    this.state.messages.map(function (message) {
-	                        return _react2.default.createElement(
-	                            'li',
-	                            { key: message.message_id, id: message.message_id,
-	                                className: "users-messages__message " + message.status },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'users-messages__message__image' },
-	                                _react2.default.createElement(
-	                                    'a',
-	                                    { className: 'photo', href: message.photo.replace("thumbs", "fullsize"),
-	                                        title: message.message },
-	                                    _react2.default.createElement('img', { src: message.photo, width: '50', height: '50', alt: 'photo' })
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'users-messages__message__info' },
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'users-messages__message__info__text' },
-	                                    message.message
-	                                ),
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'users-messages__message__info__time' },
-	                                    getDate(message.datetime)
-	                                )
-	                            )
-	                        );
-	                    })
-	                );
-	            } else {
-	                return _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    'Loading...'
-	                );
-	            }
-	        }
-	    }]);
-
-	    return Messages;
-	}(_react2.default.Component);
-
-	var Controls = function (_React$Component3) {
-	    _inherits(Controls, _React$Component3);
-
-	    function Controls() {
-	        _classCallCheck(this, Controls);
-
-	        return _possibleConstructorReturn(this, (Controls.__proto__ || Object.getPrototypeOf(Controls)).apply(this, arguments));
-	    }
-
-	    _createClass(Controls, [{
-	        key: 'render',
-	        value: function render() {
-
-	            return _react2.default.createElement('div', { className: 'control' });
-	        }
-	    }]);
-
-	    return Controls;
-	}(_react2.default.Component);
-
-	var Parent = function (_React$Component4) {
-	    _inherits(Parent, _React$Component4);
+	var Parent = function (_React$Component2) {
+	    _inherits(Parent, _React$Component2);
 
 	    function Parent(props) {
 	        _classCallCheck(this, Parent);
 
-	        var _this4 = _possibleConstructorReturn(this, (Parent.__proto__ || Object.getPrototypeOf(Parent)).call(this, props));
+	        var _this2 = _possibleConstructorReturn(this, (Parent.__proto__ || Object.getPrototypeOf(Parent)).call(this, props));
 
-	        _this4.loadData = _this4.loadData.bind(_this4);
-	        _this4.state = {
+	        _this2.loadData = _this2.loadData.bind(_this2);
+	        _this2.state = {
 	            tramRoutes: undefined,
 	            trollRoutes: undefined,
 	            info: undefined,
 	            messages: undefined
 	        };
-	        return _this4;
+	        return _this2;
 	    }
 
 	    _createClass(Parent, [{
@@ -296,8 +201,8 @@ webpackJsonp([0,3],[
 	        }
 
 	        /*    componentWillMount() {
-	                this.loadData();
-	            }*/
+	         this.loadData();
+	         }*/
 
 	    }, {
 	        key: 'componentDidMount',
@@ -306,8 +211,8 @@ webpackJsonp([0,3],[
 	        }
 
 	        /*componentWillReceiveProps() {
-	            this.loadData();
-	        }*/
+	         this.loadData();
+	         }*/
 
 	    }, {
 	        key: 'render',
@@ -333,10 +238,10 @@ webpackJsonp([0,3],[
 	                _react2.default.createElement(
 	                    'section',
 	                    { className: 'main' },
-	                    _react2.default.createElement(_Inform.Inform, { inform: this.state.info }),
-	                    _react2.default.createElement(Controls, null),
+	                    _react2.default.createElement(_Inform.Inform, { inform: this.state.info, buttons: false }),
+	                    _react2.default.createElement(_control.Control, null),
 	                    _react2.default.createElement('hr', null),
-	                    _react2.default.createElement(Messages, { messageList: this.state.messages })
+	                    _react2.default.createElement(_messages.Messages, { messageList: this.state.messages })
 	                )
 	            );
 	        }
@@ -345,7 +250,8 @@ webpackJsonp([0,3],[
 	    return Parent;
 	}(_react2.default.Component);
 
-	_reactDom2.default.render(_react2.default.createElement(Parent, { status: '../dev/get_responses/status.json', routeInfo: '../dev/get_responses/get_status_info.json', messages: '../dev/get_responses/messages.json' }), document.getElementById('parent'));
+	_reactDom2.default.render(_react2.default.createElement(Parent, { status: '../dev/get_responses/status.json', routeInfo: '../dev/get_responses/get_status_info.json',
+	    messages: '../dev/get_responses/messages.json' }), document.getElementById('parent'));
 
 /***/ },
 /* 2 */
@@ -21825,6 +21731,34 @@ webpackJsonp([0,3],[
 	        key: 'drawData',
 	        value: function drawData(data) {
 	            var well = "inform-window inform-window_" + data.status;
+	            if (this.props.buttons) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: "well " + well },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'inform-window__way' },
+	                        _react2.default.createElement(_route.View, { style: "inform-window__route-box", status: data.status, way: data.route.way,
+	                            type: data.route.type })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'inform-window__message' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'inform-window__text' },
+	                            data.message
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'inform-window__actions' },
+	                        _react2.default.createElement('span', { className: 'glyphicon glyphicon-star', 'aria-hidden': 'true' }),
+	                        _react2.default.createElement('span', { id: data.route.type + "_" + data.route.way, 'data-toggle': 'modal', 'data-target': '#SenderModal',
+	                            className: 'glyphicon glyphicon-warning-sign', 'aria-hidden': 'true' })
+	                    )
+	                );
+	            }
 	            return _react2.default.createElement(
 	                'div',
 	                { className: "well " + well },
@@ -21842,13 +21776,6 @@ webpackJsonp([0,3],[
 	                        { className: 'inform-window__text' },
 	                        data.message
 	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'inform-window__actions' },
-	                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-star', 'aria-hidden': 'true' }),
-	                    _react2.default.createElement('span', { id: data.route.type + "_" + data.route.way, 'data-toggle': 'modal', 'data-target': '#SenderModal',
-	                        className: 'glyphicon glyphicon-warning-sign', 'aria-hidden': 'true' })
 	                )
 	            );
 	        }
@@ -22037,6 +21964,221 @@ webpackJsonp([0,3],[
 	    }]);
 
 	    return List;
+	}(_react2.default.Component);
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Messages = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _message = __webpack_require__(183);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Messages = exports.Messages = function (_React$Component) {
+	    _inherits(Messages, _React$Component);
+
+	    function Messages(props) {
+	        _classCallCheck(this, Messages);
+
+	        var _this = _possibleConstructorReturn(this, (Messages.__proto__ || Object.getPrototypeOf(Messages)).call(this, props));
+
+	        _this.state = {
+	            messages: undefined
+	        };
+
+	        return _this;
+	    }
+
+	    _createClass(Messages, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var messageList = this.props.messageList;
+	            this.setState({ messages: messageList });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+
+	            if (this.state.messages != undefined) {
+	                return _react2.default.createElement(
+	                    'ul',
+	                    { className: 'users-messages' },
+	                    this.state.messages.map(function (message) {
+	                        return _react2.default.createElement(
+	                            'li',
+	                            { key: message.message_id },
+	                            _react2.default.createElement(_message.Message, { message: message })
+	                        );
+	                    })
+	                );
+	            } else {
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    'Loading...'
+	                );
+	            }
+	        }
+	    }]);
+
+	    return Messages;
+	}(_react2.default.Component);
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Message = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Message = exports.Message = function (_React$Component) {
+	    _inherits(Message, _React$Component);
+
+	    function Message(props) {
+	        _classCallCheck(this, Message);
+
+	        return _possibleConstructorReturn(this, (Message.__proto__ || Object.getPrototypeOf(Message)).call(this, props));
+	    }
+
+	    _createClass(Message, [{
+	        key: 'render',
+	        value: function render() {
+	            function getDate(date) {
+	                var options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+	                return new Date(date).toLocaleDateString('ru-RU', options);
+	            }
+
+	            var message = this.props.message;
+	            return _react2.default.createElement(
+	                'div',
+	                { id: message.message_id, className: "users-messages__message " + message.status },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'users-messages__message__image' },
+	                    _react2.default.createElement(
+	                        'a',
+	                        { className: 'photo', href: message.photo.replace("thumbs", "fullsize"),
+	                            title: message.message },
+	                        _react2.default.createElement('img', { src: message.photo, width: '50', height: '50', alt: 'photo' })
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'users-messages__message__info' },
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: 'users-messages__message__info__text' },
+	                        message.message
+	                    ),
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: 'users-messages__message__info__time' },
+	                        getDate(message.datetime)
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Message;
+	}(_react2.default.Component);
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Control = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Control = exports.Control = function (_React$Component) {
+	    _inherits(Control, _React$Component);
+
+	    function Control(props) {
+	        _classCallCheck(this, Control);
+
+	        return _possibleConstructorReturn(this, (Control.__proto__ || Object.getPrototypeOf(Control)).call(this, props));
+	    }
+
+	    _createClass(Control, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'form',
+	                    null,
+	                    _react2.default.createElement('input', { type: 'radio', name: 'route-state', value: 'normal' }),
+	                    _react2.default.createElement('input', { type: 'radio', name: 'route-state', value: 'duty' }),
+	                    _react2.default.createElement('input', { type: 'radio', name: 'route-state', value: 'stoped' }),
+	                    _react2.default.createElement('input', { type: 'text' }),
+	                    _react2.default.createElement('input', { type: 'file' }),
+	                    _react2.default.createElement(
+	                        'button',
+	                        null,
+	                        'Submit'
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Control;
 	}(_react2.default.Component);
 
 /***/ }

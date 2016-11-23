@@ -4,7 +4,7 @@ webpackJsonp([1,3],[
 
 	'use strict';
 
-	var _index = __webpack_require__(182);
+	var _index = __webpack_require__(185);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -21489,6 +21489,34 @@ webpackJsonp([1,3],[
 	        key: 'drawData',
 	        value: function drawData(data) {
 	            var well = "inform-window inform-window_" + data.status;
+	            if (this.props.buttons) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: "well " + well },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'inform-window__way' },
+	                        _react2.default.createElement(_route.View, { style: "inform-window__route-box", status: data.status, way: data.route.way,
+	                            type: data.route.type })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'inform-window__message' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'inform-window__text' },
+	                            data.message
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'inform-window__actions' },
+	                        _react2.default.createElement('span', { className: 'glyphicon glyphicon-star', 'aria-hidden': 'true' }),
+	                        _react2.default.createElement('span', { id: data.route.type + "_" + data.route.way, 'data-toggle': 'modal', 'data-target': '#SenderModal',
+	                            className: 'glyphicon glyphicon-warning-sign', 'aria-hidden': 'true' })
+	                    )
+	                );
+	            }
 	            return _react2.default.createElement(
 	                'div',
 	                { className: "well " + well },
@@ -21506,13 +21534,6 @@ webpackJsonp([1,3],[
 	                        { className: 'inform-window__text' },
 	                        data.message
 	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'inform-window__actions' },
-	                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-star', 'aria-hidden': 'true' }),
-	                    _react2.default.createElement('span', { id: data.route.type + "_" + data.route.way, 'data-toggle': 'modal', 'data-target': '#SenderModal',
-	                        className: 'glyphicon glyphicon-warning-sign', 'aria-hidden': 'true' })
 	                )
 	            );
 	        }
@@ -21704,7 +21725,10 @@ webpackJsonp([1,3],[
 	}(_react2.default.Component);
 
 /***/ },
-/* 182 */
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
