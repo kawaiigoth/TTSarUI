@@ -63,7 +63,7 @@ class Routes extends React.Component {
     render() {
 
         return (
-            <List horizontal={false} routeList={this.state.routes}/>
+            <List classProp="route-list_inline route-list_scrollable" horizontal={false} routeList={this.state.routes}/>
         );
     }
 
@@ -193,7 +193,7 @@ class Parent extends React.Component {
                     <Inform inform={this.state.info} buttons={false}/>
                     <Control />
                     <hr />
-                    <Messages messageList={this.state.messages}/>
+                    <Messages classProp="messages_scrollable" messageList={this.state.messages}/>
                 </section>
             </div>
         );

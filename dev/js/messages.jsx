@@ -17,12 +17,12 @@ export class Messages extends React.Component{
 
 
     render() {
-
+let classProp = this.props.classProp ? this.props.classProp : "";
         if (this.state.messages != undefined) {
             return (
-                <ul className="users-messages">
+                <ul className={"messages " + classProp}>
                     {this.state.messages.map(message =>
-                        <li key={message.message_id}>
+                        <li key={message.message_id} className="messages__element">
                             <Message message={message}/>
                         </li>
                     )}

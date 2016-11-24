@@ -63,7 +63,13 @@ a:hover {
   list-style: none;
   padding: 0;
     text-align: right;
+    vertical-align: top;
 }
+
+.route-list_inline {
+    display: inline-block;
+}
+
 .route-list__element {
     margin: 5px 10px;
 }
@@ -126,59 +132,6 @@ body > footer {
     margin-bottom: 20px;
 }
 
-.adj-routes {
-    float: left;
-    width: 20%;
-    padding-left: 7%;
-    height: 500px;
-}
-.adj-routes .route-list {
-    width: 100%;
-}
-.adj-routes .route-list .selected {
-    border: 2px solid #f7b733;
-    border-radius: 50%;
-}
-.adj-routes .route-box-wrap {
-    display: block;
-    min-width: 50px;
-    width: 55%;
-    margin: 0 0 15px 0;
-}
-.users {
-    float: right;
-    width: 20%;
-    padding: 0 2%;
-    height: 500px;
-
-}
-.users-messages-message {
-    border: 1px solid black;
-    padding: 5px;
-    margin: 2.5px 0 2.5px 0;
-}
-.users-messages-message:first-child {
-    background-color: #fc4a1a;
-    color: white;
-}
-.content {
-    margin: 0 auto;
-    padding: 0 2%;
-    width: 60%;
-}
-.content .status {
-    padding: 25px;
-    color: #2b232b;
-    font-size: larger;
-    font-weight: 600;
-}
-.content .control {
-    border: 1px solid black;
-    width: 100%;
-    padding: 20px;
-    height: 382px;
-}
-
 .header{
     position: relative;
     text-align: center;
@@ -191,5 +144,94 @@ body > footer {
 
 .social-icon{
     width: 30px;
+}
+
+.control-form{
+    display: inline-block;
+    width: 100%;
+    height: 300px;
+}
+
+.control-form__textarea{
+    resize: vertical;
+}
+
+.side-routes{
+    display: inline-block;
+    width: 20%;
+    height: 500px;
+    margin-right: 50px;
+    vertical-align: text-top;
+}
+.main{
+    display: inline-block;
+    width: 60%;
+    vertical-align: text-top;
+}
+
+.messages{
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    width: 60%;
+}
+
+.messages__element{
+
+}
+
+.message{
+    height: 52px;
+    border: 1px solid #f0ad4e;
+}
+
+.message__image{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.message__info{
+    display: inline-block;
+    height: 100%;
+}
+
+.message__text{
+    height: 60%;
+    padding: 5px;
+}
+
+.message__time{
+    padding: 0 5px;
+}
+
+.route-list_scrollable{
+    overflow: hidden;
+    height: 100%;
+}
+
+.route-list_scrollable:hover{
+    overflow: auto;
+}
+
+.messages_scrollable{
+    height: 300px;
+    overflow: hidden;
+}
+
+.messages_scrollable:hover{
+    overflow: auto;
+}
+
+::-webkit-scrollbar{
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 /*# sourceMappingURL=style.css.map*/

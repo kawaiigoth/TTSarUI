@@ -23,9 +23,10 @@ export class List extends React.Component {
     }
 
     render() {
-        let routes = this.renderRoutes(this.props);
+        let routes = this.renderRoutes(this.props),
+            classProp = this.props.classProp ? this.props.classProp : "";
         return (
-            <ul className="route-list">
+            <ul className={"route-list " + classProp}>
                 {routes}
             </ul>);
     }

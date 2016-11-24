@@ -106,7 +106,7 @@ webpackJsonp([0,3],[
 	        key: 'render',
 	        value: function render() {
 
-	            return _react2.default.createElement(_List.List, { horizontal: false, routeList: this.state.routes });
+	            return _react2.default.createElement(_List.List, { classProp: 'route-list_inline route-list_scrollable', horizontal: false, routeList: this.state.routes });
 	        }
 	    }]);
 
@@ -241,7 +241,7 @@ webpackJsonp([0,3],[
 	                    _react2.default.createElement(_Inform.Inform, { inform: this.state.info, buttons: false }),
 	                    _react2.default.createElement(_control.Control, null),
 	                    _react2.default.createElement('hr', null),
-	                    _react2.default.createElement(_messages.Messages, { messageList: this.state.messages })
+	                    _react2.default.createElement(_messages.Messages, { classProp: 'messages_scrollable', messageList: this.state.messages })
 	                )
 	            );
 	        }
@@ -21954,10 +21954,11 @@ webpackJsonp([0,3],[
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var routes = this.renderRoutes(this.props);
+	            var routes = this.renderRoutes(this.props),
+	                classProp = this.props.classProp ? this.props.classProp : "";
 	            return _react2.default.createElement(
 	                'ul',
-	                { className: 'route-list' },
+	                { className: "route-list " + classProp },
 	                routes
 	            );
 	        }
@@ -22017,15 +22018,15 @@ webpackJsonp([0,3],[
 	    }, {
 	        key: 'render',
 	        value: function render() {
-
+	            var classProp = this.props.classProp ? this.props.classProp : "";
 	            if (this.state.messages != undefined) {
 	                return _react2.default.createElement(
 	                    'ul',
-	                    { className: 'users-messages' },
+	                    { className: "messages " + classProp },
 	                    this.state.messages.map(function (message) {
 	                        return _react2.default.createElement(
 	                            'li',
-	                            { key: message.message_id },
+	                            { key: message.message_id, className: 'messages__element' },
 	                            _react2.default.createElement(_message.Message, { message: message })
 	                        );
 	                    })
@@ -22088,10 +22089,10 @@ webpackJsonp([0,3],[
 	            var message = this.props.message;
 	            return _react2.default.createElement(
 	                'div',
-	                { id: message.message_id, className: "users-messages__message " + message.status },
+	                { id: message.message_id, className: "message " + message.status },
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'users-messages__message__image' },
+	                    { className: 'message__image' },
 	                    _react2.default.createElement(
 	                        'a',
 	                        { className: 'photo', href: message.photo.replace("thumbs", "fullsize"),
@@ -22101,16 +22102,24 @@ webpackJsonp([0,3],[
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'users-messages__message__info' },
+	                    { className: 'message__info' },
 	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'users-messages__message__info__text' },
-	                        message.message
+	                        'div',
+	                        { className: 'message__text' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            message.message
+	                        )
 	                    ),
 	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'users-messages__message__info__time' },
-	                        getDate(message.datetime)
+	                        'div',
+	                        { className: 'message__time' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'message__time' },
+	                            getDate(message.datetime)
+	                        )
 	                    )
 	                )
 	            );
@@ -22158,21 +22167,79 @@ webpackJsonp([0,3],[
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'div',
-	                null,
+	                'form',
+	                { className: 'control-form' },
 	                _react2.default.createElement(
-	                    'form',
-	                    null,
-	                    _react2.default.createElement('input', { type: 'radio', name: 'route-state', value: 'normal' }),
-	                    _react2.default.createElement('input', { type: 'radio', name: 'route-state', value: 'duty' }),
-	                    _react2.default.createElement('input', { type: 'radio', name: 'route-state', value: 'stoped' }),
-	                    _react2.default.createElement('input', { type: 'text' }),
-	                    _react2.default.createElement('input', { type: 'file' }),
+	                    'fieldset',
+	                    { className: 'form-group' },
 	                    _react2.default.createElement(
-	                        'button',
+	                        'legend',
 	                        null,
-	                        'Submit'
+	                        '\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0441\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435 \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u0430'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'form-check' },
+	                        _react2.default.createElement(
+	                            'label',
+	                            { className: 'form-check-label' },
+	                            _react2.default.createElement('input', { type: 'radio', className: 'form-check-input', name: 'routeState', id: 'normalRad',
+	                                value: 'normal', checked: true }),
+	                            '\u041C\u0430\u0440\u0448\u0440\u0443\u0442 \u0434\u0432\u0438\u0433\u0430\u0435\u0442\u0441\u044F \u043F\u043E \u0440\u0430\u0441\u043F\u0441\u0430\u043D\u0438\u044E'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'form-check' },
+	                        _react2.default.createElement(
+	                            'label',
+	                            { className: 'form-check-label' },
+	                            _react2.default.createElement('input', { type: 'radio', className: 'form-check-input', name: 'routeState', id: 'dutyRad',
+	                                value: 'duty' }),
+	                            '\u041C\u0430\u0440\u0448\u0440\u0443\u0442 \u0432 \u0434\u0435\u0436\u0443\u0440\u043D\u043E\u043C \u0440\u0435\u0436\u0438\u043C\u0435'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'form-check' },
+	                        _react2.default.createElement(
+	                            'label',
+	                            { className: 'form-check-label' },
+	                            _react2.default.createElement('input', { type: 'radio', className: 'form-check-input', name: 'routeState', id: 'stopedRad',
+	                                value: 'stoped' }),
+	                            '\u041C\u0430\u0440\u0448\u0440\u0443\u0442 \u043D\u0435 \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442'
+	                        )
 	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'form-group' },
+	                    _react2.default.createElement(
+	                        'label',
+	                        { 'for': 'routeComment' },
+	                        '\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u0435'
+	                    ),
+	                    _react2.default.createElement('textarea', { placeholder: '\u0422\u0430 \u0441\u0430\u043C\u0430\u044F \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F, \u0447\u0442\u043E \u043F\u0438\u0448\u0435\u0442\u0441\u044F \u043F\u0440\u0438 \u043D\u0430\u0436\u0430\u0442\u0438\u0438 \u043D\u0430 \u043A\u043D\u043E\u043F\u043E\u0447\u043A\u0443', className: 'form-control control-form__textarea', id: 'routeComment', rows: '3' })
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'form-group' },
+	                    _react2.default.createElement(
+	                        'label',
+	                        { 'for': 'fileUpload' },
+	                        '\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044E'
+	                    ),
+	                    _react2.default.createElement('input', { type: 'file', accept: 'image/*', className: 'form-control-file', id: 'fileUpload' }),
+	                    _react2.default.createElement(
+	                        'small',
+	                        { id: 'fileHelp', className: 'form-text text-muted' },
+	                        '\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0438 \u0444\u043E\u0440\u043C\u0430\u0442\u0430 \u0442\u0430\u043A\u043E\u0433\u043E\u0442\u043E, \u0440\u0430\u0437\u043C\u0435\u0440\u0430 - \u0432\u043E\u0442\u0442\u0430\u043A\u043E\u0433\u043E\u0442\u0430.'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'button',
+	                    { type: 'submit', className: 'btn btn-primary' },
+	                    '\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F'
 	                )
 	            );
 	        }

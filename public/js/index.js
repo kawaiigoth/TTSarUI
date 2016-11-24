@@ -21712,10 +21712,11 @@ webpackJsonp([1,3],[
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var routes = this.renderRoutes(this.props);
+	            var routes = this.renderRoutes(this.props),
+	                classProp = this.props.classProp ? this.props.classProp : "";
 	            return _react2.default.createElement(
 	                'ul',
-	                { className: 'route-list' },
+	                { className: "route-list " + classProp },
 	                routes
 	            );
 	        }
