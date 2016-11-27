@@ -250,8 +250,8 @@ webpackJsonp([0,3],[
 	    return Parent;
 	}(_react2.default.Component);
 
-	_reactDom2.default.render(_react2.default.createElement(Parent, { status: '../dev/get_responses/status.json', routeInfo: '../dev/get_responses/get_status_info.json',
-	    messages: '../dev/get_responses/messages.json' }), document.getElementById('parent'));
+	_reactDom2.default.render(_react2.default.createElement(Parent, { status: './get_responses/status.json', routeInfo: './get_responses/get_status_info.json',
+	    messages: './get_responses/messages.json' }), document.getElementById('parent'));
 
 /***/ },
 /* 2 */
@@ -21686,13 +21686,7 @@ webpackJsonp([0,3],[
 	    _createClass(Inform, [{
 	        key: 'getInfo',
 	        value: function getInfo(data) {
-
 	            var self = this;
-	            /*
-	                        promise = new Promise((resolve,reject)=>{
-	                            return typeParse(data);
-	                        });
-	            */
 
 	            self.setState({ data: typeParse(data) });
 	            function typeParse(data) {
@@ -21702,6 +21696,7 @@ webpackJsonp([0,3],[
 	                console.log(data);
 	                return data;
 	            }
+
 	            function statusParse(data) {
 	                switch (data) {
 	                    case 1:
@@ -21718,14 +21713,15 @@ webpackJsonp([0,3],[
 
 	                return data;
 	            }
+
 	            function setData(data) {
 	                console.log(data);
 	                self.setState({ data: data });
 	            }
+
 	            function showError(data) {
 	                console.log('err');
 	            }
-	            /*promise.then(setData,showError);*/
 	        }
 	    }, {
 	        key: 'drawData',
@@ -22216,7 +22212,7 @@ webpackJsonp([0,3],[
 	                    { className: 'form-group' },
 	                    _react2.default.createElement(
 	                        'label',
-	                        { 'for': 'routeComment' },
+	                        { htmlFor: 'routeComment' },
 	                        '\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u0435'
 	                    ),
 	                    _react2.default.createElement('textarea', { placeholder: '\u0422\u0430 \u0441\u0430\u043C\u0430\u044F \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F, \u0447\u0442\u043E \u043F\u0438\u0448\u0435\u0442\u0441\u044F \u043F\u0440\u0438 \u043D\u0430\u0436\u0430\u0442\u0438\u0438 \u043D\u0430 \u043A\u043D\u043E\u043F\u043E\u0447\u043A\u0443', className: 'form-control control-form__textarea', id: 'routeComment', rows: '3' })
@@ -22226,7 +22222,7 @@ webpackJsonp([0,3],[
 	                    { className: 'form-group' },
 	                    _react2.default.createElement(
 	                        'label',
-	                        { 'for': 'fileUpload' },
+	                        { htmlFor: 'fileUpload' },
 	                        '\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044E'
 	                    ),
 	                    _react2.default.createElement('input', { type: 'file', accept: 'image/*', className: 'form-control-file', id: 'fileUpload' }),

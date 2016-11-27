@@ -202,7 +202,7 @@ class Parent extends React.Component {
 }
 
 ReactDOM.render(
-    <Parent status="../dev/get_responses/status.json" routeInfo='../dev/get_responses/get_status_info.json'
-            messages="../dev/get_responses/messages.json"/>,
+    <Parent status="./get_responses/status.json" routeInfo='./get_responses/get_status_info.json'
+            messages="./get_responses/messages.json"/>,
     document.getElementById('parent')
 );

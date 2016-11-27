@@ -25,7 +25,7 @@ class App extends React.Component {
     }
 
     openInform(id) {
-        this.setState({informData: this.getRouteData('../dev/get_responses/get_status_info.json')});
+        this.setState({informData: this.getRouteData('./get_responses/get_status_info.json')});
     }
 
     getRouteData(data){
@@ -193,6 +193,6 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-    <App routesStatus="../dev/get_responses/status.json"/>,
+    <App routesStatus="./get_responses/status.json"/>,
     document.getElementById('parent')
 );

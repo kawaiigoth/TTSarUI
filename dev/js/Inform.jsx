@@ -13,16 +13,9 @@ export class Inform extends React.Component {
     }
 
     getInfo(data) {
+        let self = this;
 
-
-        let  self = this;
-/*
-            promise = new Promise((resolve,reject)=>{
-                return typeParse(data);
-            });
-*/
-
-self.setState({data:typeParse(data)});
+        self.setState({data: typeParse(data)});
         function typeParse(data) {
 
             var status = data.status;
@@ -30,6 +23,7 @@ self.setState({data:typeParse(data)});
             console.log(data);
             return data;
         }
+
         function statusParse(data) {
             switch (data) {
                 case 1:
@@ -46,40 +40,40 @@ self.setState({data:typeParse(data)});
 
             return data;
         }
+
         function setData(data) {
             console.log(data);
             self.setState({data: data})
 
         }
+
         function showError(data) {
             console.log('err');
         }
-        /*promise.then(setData,showError);*/
 
     }
 
     drawData(data) {
         var well = "inform-window inform-window_" + data.status;
-        if(this.props.buttons)
-        {
-return(
-    <div className={"well " + well}>
-        <div className="inform-window__way">
-            <View style={"inform-window__route-box"} status={data.status} way={data.route.way}
-                  type={data.route.type}/>
-        </div>
-        <div className="inform-window__message">
+        if (this.props.buttons) {
+            return (
+                <div className={"well " + well}>
+                    <div className="inform-window__way">
+                        <View style={"inform-window__route-box"} status={data.status} way={data.route.way}
+                              type={data.route.type}/>
+                    </div>
+                    <div className="inform-window__message">
                 <span className="inform-window__text">
                     {data.message}
                 </span>
-        </div>
-        <div className="inform-window__actions">
-            <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
-            <span id={data.route.type + "_" + data.route.way} data-toggle="modal" data-target="#SenderModal"
-                  className="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-        </div>
-    </div>
-)
+                    </div>
+                    <div className="inform-window__actions">
+                        <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
+                        <span id={data.route.type + "_" + data.route.way} data-toggle="modal" data-target="#SenderModal"
+                              className="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                    </div>
+                </div>
+            )
         }
         return (
 
@@ -98,7 +92,7 @@ return(
         );
     }
 
-   componentWillReceiveProps() {
+    componentWillReceiveProps() {
         this.getInfo(this.props.inform);
     }
 

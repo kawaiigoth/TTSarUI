@@ -21444,13 +21444,7 @@ webpackJsonp([1,3],[
 	    _createClass(Inform, [{
 	        key: 'getInfo',
 	        value: function getInfo(data) {
-
 	            var self = this;
-	            /*
-	                        promise = new Promise((resolve,reject)=>{
-	                            return typeParse(data);
-	                        });
-	            */
 
 	            self.setState({ data: typeParse(data) });
 	            function typeParse(data) {
@@ -21460,6 +21454,7 @@ webpackJsonp([1,3],[
 	                console.log(data);
 	                return data;
 	            }
+
 	            function statusParse(data) {
 	                switch (data) {
 	                    case 1:
@@ -21476,14 +21471,15 @@ webpackJsonp([1,3],[
 
 	                return data;
 	            }
+
 	            function setData(data) {
 	                console.log(data);
 	                self.setState({ data: data });
 	            }
+
 	            function showError(data) {
 	                console.log('err');
 	            }
-	            /*promise.then(setData,showError);*/
 	        }
 	    }, {
 	        key: 'drawData',
@@ -21783,7 +21779,7 @@ webpackJsonp([1,3],[
 	    _createClass(App, [{
 	        key: 'openInform',
 	        value: function openInform(id) {
-	            this.setState({ informData: this.getRouteData('../dev/get_responses/get_status_info.json') });
+	            this.setState({ informData: this.getRouteData('./get_responses/get_status_info.json') });
 	        }
 	    }, {
 	        key: 'getRouteData',
@@ -21964,7 +21960,7 @@ webpackJsonp([1,3],[
 	    return App;
 	}(_react2.default.Component);
 
-	_reactDom2.default.render(_react2.default.createElement(App, { routesStatus: '../dev/get_responses/status.json' }), document.getElementById('parent'));
+	_reactDom2.default.render(_react2.default.createElement(App, { routesStatus: './get_responses/status.json' }), document.getElementById('parent'));
 
 /***/ }
 ]);
