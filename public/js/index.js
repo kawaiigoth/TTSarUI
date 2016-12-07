@@ -21752,12 +21752,6 @@ webpackJsonp([1,3],[
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	function requestData(source) {
-	    var parsedData = void 0;
-
-	    return parsedData;
-	}
-
 	var App = function (_React$Component) {
 	    _inherits(App, _React$Component);
 
@@ -21771,7 +21765,8 @@ webpackJsonp([1,3],[
 	        _this.state = {
 	            tramRoutes: undefined,
 	            trollRoutes: undefined,
-	            informData: undefined
+	            informData: undefined,
+	            isError: false
 	        };
 	        return _this;
 	    }
@@ -21779,11 +21774,11 @@ webpackJsonp([1,3],[
 	    _createClass(App, [{
 	        key: 'openInform',
 	        value: function openInform(id) {
-	            this.setState({ informData: this.getRouteData('./get_responses/get_status_info.json') });
+	            this.setState({ informData: this.getRouteData(id) });
 	        }
 	    }, {
 	        key: 'getRouteData',
-	        value: function getRouteData(data) {
+	        value: function getRouteData(id) {
 
 	            var self = this;
 	            function status(response) {
@@ -21798,7 +21793,15 @@ webpackJsonp([1,3],[
 	                return response.json();
 	            }
 
-	            fetch(data).then(status).then(json).then(function (data) {
+	            var myHeaders = new Headers();
+	            var options = {
+	                method: 'GET',
+	                headers: myHeaders,
+	                mode: 'cors',
+	                cache: 'no-cache'
+	            };
+
+	            fetch('api/get-status-info?id=' + id, options).then(status).then(json).then(function (data) {
 	                self.setState({ informData: data });
 	            }).catch(function (error) {
 	                console.log('Request failed', error);
@@ -21839,9 +21842,7 @@ webpackJsonp([1,3],[
 	    }, {
 	        key: 'loadData',
 	        value: function loadData() {
-	            var routeStatus = this.props.routesStatus,
-	                self = this;
-
+	            var self = this;
 	            function status(response) {
 	                if (response.status >= 200 && response.status < 300) {
 	                    return Promise.resolve(response);
@@ -21854,8 +21855,17 @@ webpackJsonp([1,3],[
 	                return response.json();
 	            }
 
-	            fetch(routeStatus).then(status).then(json).then(typeParse).catch(function (error) {
+	            var myHeaders = new Headers();
+	            var options = {
+	                method: 'GET',
+	                headers: myHeaders,
+	                mode: 'cors',
+	                cache: 'no-cache'
+	            };
+
+	            fetch('api/status', options).then(status).then(json).then(typeParse).catch(function (error) {
 	                console.log('Request failed', error);
+	                self.setState({ isError: true });
 	            });
 
 	            function typeParse(data) {
@@ -21898,6 +21908,14 @@ webpackJsonp([1,3],[
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            if (this.state.isError == true) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    ' Sorry, an error occured while loading routes. Try reload page.'
+	                );
+	            }
+
 	            if (this.state.tramRoutes == undefined || this.state.trollRoutes == undefined) {
 	                return _react2.default.createElement(
 	                    'div',
@@ -21960,7 +21978,7 @@ webpackJsonp([1,3],[
 	    return App;
 	}(_react2.default.Component);
 
-	_reactDom2.default.render(_react2.default.createElement(App, { routesStatus: './get_responses/status.json' }), document.getElementById('parent'));
+	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('parent'));
 
 /***/ }
 ]);

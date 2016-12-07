@@ -1,8 +1,0 @@
-{
-  "route": {
-      "type": 1,
-      "way": 15
-  },
-  "status": 1,
-  "message": "Some information about route status"
-}

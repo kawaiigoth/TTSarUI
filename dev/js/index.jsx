@@ -4,14 +4,6 @@ import ReactDOM from 'react-dom';
 import {List} from './List.jsx';
 import {Inform} from './Inform.jsx'
 
-function requestData(source) {
-    let parsedData;
-
-
-    return parsedData;
-}
-
-
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -20,15 +12,16 @@ class App extends React.Component {
         this.state = {
             tramRoutes: undefined,
             trollRoutes: undefined,
-            informData: undefined
+            informData: undefined,
+            isError: false
         }
     }
 
     openInform(id) {
-        this.setState({informData: this.getRouteData('./get_responses/get_status_info.json')});
+        this.setState({informData: this.getRouteData(id)});
     }
 
-    getRouteData(data){
+    getRouteData(id){
 
         let self = this;
         function status(response) {
@@ -43,7 +36,16 @@ class App extends React.Component {
             return response.json()
         }
 
-        fetch(data)
+        var myHeaders = new Headers();
+        let options = {
+            method : 'GET',
+            headers:  myHeaders,
+            mode: 'cors',
+            cache: 'no-cache'
+        };
+
+
+        fetch('api/get-status-info?id=' + id, options)
             .then(status)
             .then(json)
             .then(function (data) {
@@ -62,7 +64,7 @@ class App extends React.Component {
                         trams.push(route)
                     }
                 }
-            )
+            );
             self.setState({tramRoutes: statusParse(trams), trollRoutes: statusParse(trolls)});
         }
 
@@ -89,10 +91,7 @@ class App extends React.Component {
 
 
     loadData() {
-        let routeStatus = this.props.routesStatus,
-        self = this;
-
-
+        let self = this;
         function status(response) {
             if (response.status >= 200 && response.status < 300) {
                 return Promise.resolve(response)
@@ -105,12 +104,23 @@ class App extends React.Component {
             return response.json()
         }
 
-        fetch(routeStatus)
+
+        var myHeaders = new Headers();
+        let options = {
+            method : 'GET',
+            headers:  myHeaders,
+            mode: 'cors',
+            cache: 'no-cache'
+        };
+
+
+        fetch('api/status', options)
             .then(status)
             .then(json)
             .then(typeParse)
             .catch(function (error) {
                 console.log('Request failed', error);
+                self.setState({isError:true})
             });
 
         function typeParse(data) {
@@ -154,6 +164,10 @@ class App extends React.Component {
     }
 
     render() {
+        if(this.state.isError == true){
+            return <div> Sorry, an error occured while loading routes. Try reload page.</div>
+        }
+
         if (this.state.tramRoutes == undefined || this.state.trollRoutes == undefined) {
             return <div>Loading...</div>
         }
@@ -193,6 +207,7 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-    <App routesStatus="./get_responses/status.json"/>,
+
+    <App/>,
     document.getElementById('parent')
 );
