@@ -21779,11 +21779,13 @@ webpackJsonp([0,3],[
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps() {
 	            this.getInfo(this.props.inform);
+	            console.log("I'm will recive props!(Inform)");
 	        }
 	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            this.getInfo(this.props.inform);
+	            console.log("I'm mounted!(Inform)");
 	        }
 	    }, {
 	        key: 'render',

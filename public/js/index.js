@@ -21537,11 +21537,13 @@ webpackJsonp([1,3],[
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps() {
 	            this.getInfo(this.props.inform);
+	            console.log("I'm will recive props!(Inform)");
 	        }
 	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            this.getInfo(this.props.inform);
+	            console.log("I'm mounted!(Inform)");
 	        }
 	    }, {
 	        key: 'render',
@@ -21744,6 +21746,8 @@ webpackJsonp([1,3],[
 
 	var _Inform = __webpack_require__(179);
 
+	var _modal = __webpack_require__(186);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21904,6 +21908,7 @@ webpackJsonp([1,3],[
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            this.loadData();
+	            console.log("I'm mounted!(App)");
 	        }
 	    }, {
 	        key: 'render',
@@ -21928,7 +21933,7 @@ webpackJsonp([1,3],[
 	                return _react2.default.createElement(
 	                    'div',
 	                    null,
-	                    _react2.default.createElement(_Inform.Inform, { inform: this.state.informData }),
+	                    _react2.default.createElement(_Inform.Inform, { inform: this.state.informData, buttons: true }),
 	                    _react2.default.createElement(
 	                        'h2',
 	                        null,
@@ -21946,7 +21951,8 @@ webpackJsonp([1,3],[
 	                        null,
 	                        ' \u0422\u0440\u0430\u043C\u0432\u0430\u0438: '
 	                    ),
-	                    _react2.default.createElement(_List.List, { horizontal: true, routeType: '2', routeList: this.state.tramRoutes, action: this.openInform })
+	                    _react2.default.createElement(_List.List, { horizontal: true, routeType: '2', routeList: this.state.tramRoutes, action: this.openInform }),
+	                    _react2.default.createElement(_modal.Modal, { id: this.state.informData.route.type + "_" + this.state.informData.route.way })
 	                );
 	            } else {
 	                return _react2.default.createElement(
@@ -21979,6 +21985,205 @@ webpackJsonp([1,3],[
 	}(_react2.default.Component);
 
 	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('parent'));
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Modal = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Modal = exports.Modal = function (_React$Component) {
+	    _inherits(Modal, _React$Component);
+
+	    function Modal(props) {
+	        _classCallCheck(this, Modal);
+
+	        var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, props));
+
+	        _this.state = {
+	            text: "",
+	            file: undefined,
+	            lat: undefined,
+	            lon: undefined,
+	            id: undefined
+
+	        };
+	        _this.handleSubmit = _this.handleSubmit.bind(_this);
+	        _this.send = _this.send.bind(_this);
+	        _this.ajaxCall = _this.ajaxCall.bind(_this);
+	        _this.handleImgCh = _this.handleImgCh.bind(_this);
+	        _this.handleTextCh = _this.handleTextCh.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(Modal, [{
+	        key: 'send',
+	        value: function send() {
+	            "use strict";
+
+	            var fd = new FormData(document.getElementById('UserForm'));
+	            if (navigator.geolocation) {
+	                navigator.geolocation.getCurrentPosition(function (position) {
+	                    console.log('location', position.coords.latitude);
+	                    fd.append('latitude', position.coords.latitude);
+	                    fd.append('longitude', position.coords.longitude);
+	                    console.log(fd);
+	                    console.log(this.props.id);
+	                    //this.ajaxCall(fd);
+	                });
+	            } else {
+	                    //this.ajaxCall(fd);
+	                }
+	        }
+	    }, {
+	        key: 'ajaxCall',
+	        value: function ajaxCall(fd) {
+	            var myHeaders = new Headers();
+	            fetch("/api/send-message", {
+	                method: 'POST',
+	                headers: myHeaders,
+	                mode: 'cors',
+	                cache: 'default',
+	                body: fd
+	            }).then(function (res) {
+	                if (res.status >= 200 && res.status < 300) {
+	                    return res.statusText;
+	                } else {
+	                    var error = new Error(res.statusText);
+	                    error.response = res;
+	                    throw error;
+	                }
+	            }).then(function (data) {
+	                Form.reset();
+	            }).catch(function (error) {
+	                console.log(error);
+	            });
+	        }
+	    }, {
+	        key: 'handleSubmit',
+	        value: function handleSubmit(e) {
+	            e.preventDefault();
+	            alert("Submited");
+	            //this.send();
+	            return false;
+	        }
+	    }, {
+	        key: 'handleTextCh',
+	        value: function handleTextCh(e) {
+	            this.setState({ text: e.target.value });
+	        }
+	    }, {
+	        key: 'handleImgCh',
+	        value: function handleImgCh(e) {
+	            var _this2 = this;
+
+	            e.preventDefault();
+	            var reader = new FileReader();
+	            var file = e.target.files[0];
+
+	            reader.onloadend = function () {
+	                _this2.setState({
+	                    file: file
+	                });
+	            };
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'div',
+	                    { id: 'SenderModal', className: 'modal fade', role: 'dialog' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'modal-dialog' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'modal-content' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'modal-header' },
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { type: 'button', className: 'close', 'data-dismiss': 'modal' },
+	                                    '\xD7'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'h4',
+	                                    { className: 'modal-title' },
+	                                    '\u0421\u043E\u043E\u0431\u0449\u0438\u0442\u044C \u043E \u043F\u0440\u043E\u0431\u043B\u0435\u043C\u0435:'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'modal-body' },
+	                                _react2.default.createElement(
+	                                    'form',
+	                                    { onSubmit: this.handleSubmit, method: 'post', id: 'UserForm' },
+	                                    _react2.default.createElement('input', { type: 'hidden', value: this.props.id }),
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'form-group' },
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            { htmlFor: 'text' },
+	                                            '\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439:'
+	                                        ),
+	                                        _react2.default.createElement('input', { type: 'text', value: this.state.text, onChange: this.handleTextCh, name: 'text', id: 'text', className: 'form-control' }),
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { className: 'help-block' },
+	                                            '\u041E\u043F\u0438\u0448\u0438\u0442\u0435 \u0432\u043E\u0437\u043D\u0438\u043A\u0448\u0443\u044E \u0441\u0438\u0442\u0443\u0430\u0446\u0438\u044E.'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'form-group' },
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            { htmlFor: 'imgUpload' },
+	                                            'File input'
+	                                        ),
+	                                        _react2.default.createElement('input', { type: 'file', accept: 'image/jpeg', onChange: this.handleImgCh, id: 'imgUpload', name: 'imgUpload' }),
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            { className: 'help-block' },
+	                                            '\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u0435 \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044E \u0441 \u043C\u0435\u0441\u0442\u0430 \u0441\u043E\u0431\u044B\u0442\u0438\u044F( \u044D\u0442\u043E \u043F\u043E\u043B\u0435 \u043C\u043E\u0436\u043D\u043E \u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u043F\u0443\u0441\u0442\u044B\u043C)'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement('input', { type: 'submit', onClick: this.handleSubmit, className: 'btn btn-default', value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Modal;
+	}(_react2.default.Component);
 
 /***/ }
 ]);

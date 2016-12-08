@@ -94,10 +94,12 @@ export class Inform extends React.Component {
 
     componentWillReceiveProps() {
         this.getInfo(this.props.inform);
+        console.log("I'm will recive props!(Inform)");
     }
 
     componentDidMount() {
         this.getInfo(this.props.inform);
+        console.log("I'm mounted!(Inform)");
     }
 
     render() {

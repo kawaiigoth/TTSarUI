@@ -4,7 +4,7 @@ var path = require('path');
 var route_status = require('./api/index ');
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/dev'));
-
+app.use(express.static(__dirname + '/api'));
 app.set('port', process.env.PORT || "8080");
 
 app.get('/',function(req,res){
@@ -16,7 +16,6 @@ app.get('/about',function(req,res){
 });
 
 app.use('/api', route_status);
-
 app.use(function (req, res) {
     res.status(404).send('not found');
 });

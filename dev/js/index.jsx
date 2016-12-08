@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {List} from './List.jsx';
 import {Inform} from './Inform.jsx'
+import {Modal} from './modal.jsx';
 
 class App extends React.Component {
     constructor(props) {
@@ -160,7 +161,8 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        this.loadData()
+        this.loadData();
+        console.log("I'm mounted!(App)");
     }
 
     render() {
@@ -175,13 +177,14 @@ class App extends React.Component {
         if (this.state.informData != undefined) {
             return (
                 <div>
-                    <Inform inform={this.state.informData}/>
+                    <Inform inform={this.state.informData} buttons={true}/>
                     <h2>Маршруты</h2>
                     <hr />
                     <h3> Троллейбусы: </h3>
                     <List horizontal={true} routeType="1" routeList={this.state.trollRoutes} action={this.openInform}/>
                     <h3> Трамваи: </h3>
                     <List horizontal={true} routeType="2" routeList={this.state.tramRoutes} action={this.openInform}/>
+                    <Modal id={this.state.informData.route.type + "_" + this.state.informData.route.way}/>
                 </div>
 
             );

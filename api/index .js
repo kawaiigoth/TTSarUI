@@ -2,14 +2,15 @@ var express = require('express');
 var app = express();
 var BL = require('../BL');
 var router = express.Router();
-
+var multer = require('multer');
+var upload = multer({dest:'uploaded_images/'}).fields([{name : "text", maxCount: 1}, {name : "imgUpload", maxCount: 1},
+    {name: "id", maxCount: 1}, {name: "latitude", maxCount: 1}, {name: "longtitude", maxCount: 1}]);
 var bodyParser = require('body-parser');
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
 var bl = new BL();
 router.get('/status', requestStatus);
 router.get('/get-status-info', requestInfo);
-
+router.post('/send-message', upload, sendMessage);
 function requestStatus(req, res) {
     let stat = bl.getRoutes();
     if(stat){
@@ -31,4 +32,9 @@ function requestInfo(req,res){
     }
 }
 
+function sendMessage(req, res) {
+    console.log('sending');
+    console.log(req.body);
+    console.log(req.file);
+}
 module.exports = router;
