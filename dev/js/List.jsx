@@ -22,6 +22,22 @@ export class List extends React.Component {
 
     }
 
+    componentDidMount(){
+        console.log("list did mounted");
+    }
+
+    componentWillReceiveProps(){
+        console.log("list wiil receive props");
+    }
+
+    componentDidUpdate(){
+        console.log("list updated");
+    }
+
+    ponentWillUnmount(){
+        console.log("list bye =(");
+    }
+
     render() {
         let routes = this.renderRoutes(this.props),
             classProp = this.props.classProp ? this.props.classProp : "";

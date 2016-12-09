@@ -21708,6 +21708,26 @@ webpackJsonp([1,3],[
 	            });
 	        }
 	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            console.log("list did mounted");
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps() {
+	            console.log("list wiil receive props");
+	        }
+	    }, {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate() {
+	            console.log("list updated");
+	        }
+	    }, {
+	        key: 'ponentWillUnmount',
+	        value: function ponentWillUnmount() {
+	            console.log("list bye =(");
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var routes = this.renderRoutes(this.props),
@@ -22082,7 +22102,9 @@ webpackJsonp([1,3],[
 	        key: 'handleSubmit',
 	        value: function handleSubmit(e) {
 	            e.preventDefault();
-	            alert("Submited");
+	            var fd = new FormData();
+	            fd.append('text', this.state.text);
+	            fd.append('imgUpload', this.state.file);
 	            //this.send();
 	            return false;
 	        }
@@ -22105,6 +22127,26 @@ webpackJsonp([1,3],[
 	                    file: file
 	                });
 	            };
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            console.log("modal did mounted");
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps() {
+	            console.log("modal wiil receive props");
+	        }
+	    }, {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate() {
+	            console.log("modal updated");
+	        }
+	    }, {
+	        key: 'ponentWillUnmount',
+	        value: function ponentWillUnmount() {
+	            console.log("bye =(");
 	        }
 	    }, {
 	        key: 'render',
@@ -22140,7 +22182,7 @@ webpackJsonp([1,3],[
 	                                { className: 'modal-body' },
 	                                _react2.default.createElement(
 	                                    'form',
-	                                    { onSubmit: this.handleSubmit, method: 'post', id: 'UserForm' },
+	                                    { onSubmit: this.handleSubmit, method: 'post' },
 	                                    _react2.default.createElement('input', { type: 'hidden', value: this.props.id }),
 	                                    _react2.default.createElement(
 	                                        'div',

@@ -65,7 +65,9 @@ export class Modal extends React.Component{
 
     handleSubmit(e){
         e.preventDefault();
-        alert("Submited");
+        var fd = new FormData();
+        fd.append('text',this.state.text);
+        fd.append('imgUpload', this.state.file)
         //this.send();
         return false;
     }
@@ -87,6 +89,22 @@ export class Modal extends React.Component{
 
     }
 
+    componentDidMount(){
+        console.log("modal did mounted");
+    }
+
+    componentWillReceiveProps(){
+        console.log("modal wiil receive props");
+    }
+
+    componentDidUpdate(){
+        console.log("modal updated");
+    }
+
+    ponentWillUnmount(){
+        console.log("bye =(");
+    }
+
     render(){
         return(
             <div>
@@ -98,7 +116,7 @@ export class Modal extends React.Component{
                                 <h4 className="modal-title">Сообщить о проблеме:</h4>
                             </div>
                             <div className="modal-body">
-                                <form onSubmit={this.handleSubmit} method="post" id="UserForm">
+                                <form onSubmit={this.handleSubmit} method="post">
                                     <input type="hidden" value={this.props.id}/>
                                     <div className="form-group">
                                         <label htmlFor="text">Комментарий:</label>

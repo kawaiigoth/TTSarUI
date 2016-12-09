@@ -21950,6 +21950,26 @@ webpackJsonp([0,3],[
 	            });
 	        }
 	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            console.log("list did mounted");
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps() {
+	            console.log("list wiil receive props");
+	        }
+	    }, {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate() {
+	            console.log("list updated");
+	        }
+	    }, {
+	        key: 'ponentWillUnmount',
+	        value: function ponentWillUnmount() {
+	            console.log("list bye =(");
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var routes = this.renderRoutes(this.props),
