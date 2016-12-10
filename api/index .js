@@ -19,7 +19,19 @@ var upload = multer({storage: storage}).single('imgUpload');
 var bl = new BL();
 router.get('/status', requestStatus);
 router.get('/get-status-info', requestInfo);
+router.get('/messages', requestMessages);
 router.post('/send-message', upload, sendMessage);
+
+function requestMessages(req,res){
+    let stat = bl.getMessages();
+    if(stat){
+        res.status(200).send(stat)
+    }
+    else{
+        res.status(500).send('error');
+    }
+}
+
 function requestStatus(req, res) {
     let stat = bl.getRoutes();
     if(stat){

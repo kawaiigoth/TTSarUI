@@ -87,7 +87,6 @@ class App extends React.Component {
             .then(json)
             .then(typeParse)
             .catch(function (error) {
-                console.log('Request failed', error);
                 self.setState({isError:true})
             });
 
@@ -101,7 +100,7 @@ class App extends React.Component {
                         trams.push(route)
                     }
                 }
-            )
+            );
             self.setState({tramRoutes: statusParse(trams), trollRoutes: statusParse(trolls)});
         }
 
@@ -129,21 +128,8 @@ class App extends React.Component {
 
     componentDidMount() {
         this.loadData();
-        console.log("I'm mounted!(App)");
     }
 
-
-    componentWillReceiveProps(){
-        console.log("app wiil receive props");
-    }
-
-    componentDidUpdate(){
-        console.log("app updated");
-    }
-
-    ponentWillUnmount(){
-        console.log("app bye =(");
-    }
 
     render() {
         if(this.state.isError == true){
@@ -170,7 +156,7 @@ class App extends React.Component {
             );
         }
         else {
-            console.log("waiting fooor");
+
             return (
                 <div>
                     <h2>Маршруты</h2>

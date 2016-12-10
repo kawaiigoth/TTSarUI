@@ -21863,7 +21863,6 @@ webpackJsonp([1,3],[
 	            };
 
 	            fetch('api/status', options).then(status).then(json).then(typeParse).catch(function (error) {
-	                console.log('Request failed', error);
 	                self.setState({ isError: true });
 	            });
 
@@ -21903,22 +21902,6 @@ webpackJsonp([1,3],[
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            this.loadData();
-	            console.log("I'm mounted!(App)");
-	        }
-	    }, {
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps() {
-	            console.log("app wiil receive props");
-	        }
-	    }, {
-	        key: 'componentDidUpdate',
-	        value: function componentDidUpdate() {
-	            console.log("app updated");
-	        }
-	    }, {
-	        key: 'ponentWillUnmount',
-	        value: function ponentWillUnmount() {
-	            console.log("app bye =(");
 	        }
 	    }, {
 	        key: 'render',
@@ -21965,7 +21948,7 @@ webpackJsonp([1,3],[
 	                    _react2.default.createElement(_modal.Modal, { id: this.state.informData.route.type + "_" + this.state.informData.route.way })
 	                );
 	            } else {
-	                console.log("waiting fooor");
+
 	                return _react2.default.createElement(
 	                    'div',
 	                    null,

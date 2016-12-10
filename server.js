@@ -11,7 +11,7 @@ app.get('/',function(req,res){
     res.sendFile('index.html');
 });
 
-app.get('/about',function(req,res){
+app.get('/admin',function(req,res){
     res.sendFile('/admin.html');
 });
 

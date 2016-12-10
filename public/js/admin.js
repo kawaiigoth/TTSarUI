@@ -122,21 +122,64 @@ webpackJsonp([0,3],[
 	        var _this2 = _possibleConstructorReturn(this, (Parent.__proto__ || Object.getPrototypeOf(Parent)).call(this, props));
 
 	        _this2.loadData = _this2.loadData.bind(_this2);
+	        _this2.openControl = _this2.openControl.bind(_this2);
+	        _this2.loadControls = _this2.loadControls.bind(_this2);
 	        _this2.state = {
 	            tramRoutes: undefined,
 	            trollRoutes: undefined,
 	            info: undefined,
-	            messages: undefined
+	            messages: undefined,
+	            isError: false,
+	            isOppened: false
 	        };
 	        return _this2;
 	    }
 
 	    _createClass(Parent, [{
+	        key: 'openControl',
+	        value: function openControl(id) {
+	            this.setState({ informData: this.loadControls(id), isOppened: true });
+	        }
+	    }, {
+	        key: 'loadControls',
+	        value: function loadControls(id) {
+	            var self = this;
+	            function status(response) {
+	                if (response.status >= 200 && response.status < 300) {
+	                    return Promise.resolve(response);
+	                } else {
+	                    return Promise.reject(new Error(response.statusText));
+	                }
+	            }
+
+	            function json(response) {
+	                return response.json();
+	            }
+
+	            var myHeaders = new Headers();
+	            var options = {
+	                method: 'GET',
+	                headers: myHeaders,
+	                mode: 'cors',
+	                cache: 'no-cache'
+	            };
+	            fetch('api/get-status-info?id=' + id, options).then(status).then(json).then(function (data) {
+	                self.setState({ info: data });
+	            }).catch(function (error) {
+	                console.log('statusinfo', error);
+	                self.setState({ isError: true });
+	            });
+
+	            fetch('api/messages', options).then(status).then(json).then(function (data) {
+	                self.setState({ messages: data });
+	            }).catch(function (error) {
+	                console.log('msg', error);
+	                self.setState({ isError: true });
+	            });
+	        }
+	    }, {
 	        key: 'loadData',
 	        value: function loadData() {
-	            var routeInfo = this.props.routeInfo;
-	            var messages = this.props.messages;
-	            var status_info = this.props.status;
 	            var self = this;
 
 	            function status(response) {
@@ -183,20 +226,17 @@ webpackJsonp([0,3],[
 	                return d;
 	            }
 
-	            fetch(status_info).then(status).then(json).then(typeParse).catch(function (error) {
-	                console.log('Request failed', error);
-	            });
+	            var myHeaders = new Headers();
+	            var options = {
+	                method: 'GET',
+	                headers: myHeaders,
+	                mode: 'cors',
+	                cache: 'no-cache'
+	            };
 
-	            fetch(routeInfo).then(status).then(json).then(function (data) {
-	                self.setState({ info: data });
-	            }).catch(function (error) {
-	                console.log('Request failed', error);
-	            });
-
-	            fetch(messages).then(status).then(json).then(function (data) {
-	                self.setState({ messages: data });
-	            }).catch(function (error) {
-	                console.log('Request failed', error);
+	            fetch('api/status', options).then(status).then(json).then(typeParse).catch(function (error) {
+	                console.log('status', error);
+	                self.setState({ isError: true });
 	            });
 	        }
 
@@ -218,11 +258,51 @@ webpackJsonp([0,3],[
 	        key: 'render',
 	        value: function render() {
 
-	            if (this.state.info == undefined || this.state.messages == undefined || this.state.tramRoutes == undefined || this.state.trollRoutes == undefined) {
+	            if (this.state.isError == true) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    ' Sorry, an error occured while loading routes. Try reload page.'
+	                );
+	            }
+
+	            if (this.state.tramRoutes == undefined || this.state.trollRoutes == undefined) {
 	                return _react2.default.createElement(
 	                    'div',
 	                    null,
 	                    'Loading...'
+	                );
+	            }
+	            if (this.state.isOppened == true) {
+	                if (this.state.info != undefined && this.state.messages != undefined) {
+	                    return _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'aside',
+	                            { className: 'side-routes' },
+	                            _react2.default.createElement(Routes, { route: this.state.trollRoutes }),
+	                            _react2.default.createElement(Routes, { route: this.state.tramRoutes })
+	                        ),
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'main' },
+	                            _react2.default.createElement(_Inform.Inform, { inform: this.state.info, buttons: false }),
+	                            _react2.default.createElement(_control.Control, null),
+	                            _react2.default.createElement('hr', null),
+	                            _react2.default.createElement(_messages.Messages, { classProp: 'messages_scrollable', messageList: this.state.messages })
+	                        )
+	                    );
+	                }
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        'aside',
+	                        { className: 'side-routes' },
+	                        _react2.default.createElement(Routes, { route: this.state.trollRoutes }),
+	                        _react2.default.createElement(Routes, { route: this.state.tramRoutes })
+	                    )
 	                );
 	            }
 
@@ -230,19 +310,23 @@ webpackJsonp([0,3],[
 	                'div',
 	                null,
 	                _react2.default.createElement(
-	                    'aside',
-	                    { className: 'side-routes' },
-	                    _react2.default.createElement(Routes, { route: this.state.trollRoutes }),
-	                    _react2.default.createElement(Routes, { route: this.state.tramRoutes })
+	                    'h2',
+	                    null,
+	                    '\u041C\u0430\u0440\u0448\u0440\u0443\u0442\u044B'
 	                ),
+	                _react2.default.createElement('hr', null),
 	                _react2.default.createElement(
-	                    'section',
-	                    { className: 'main' },
-	                    _react2.default.createElement(_Inform.Inform, { inform: this.state.info, buttons: false }),
-	                    _react2.default.createElement(_control.Control, null),
-	                    _react2.default.createElement('hr', null),
-	                    _react2.default.createElement(_messages.Messages, { classProp: 'messages_scrollable', messageList: this.state.messages })
-	                )
+	                    'h3',
+	                    null,
+	                    ' \u0422\u0440\u043E\u043B\u043B\u0435\u0439\u0431\u0443\u0441\u044B: '
+	                ),
+	                _react2.default.createElement(_List.List, { horizontal: true, routeType: '1', routeList: this.state.trollRoutes, action: this.openControl }),
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    ' \u0422\u0440\u0430\u043C\u0432\u0430\u0438: '
+	                ),
+	                _react2.default.createElement(_List.List, { horizontal: true, routeType: '2', routeList: this.state.tramRoutes, action: this.openControl })
 	            );
 	        }
 	    }]);
@@ -250,8 +334,7 @@ webpackJsonp([0,3],[
 	    return Parent;
 	}(_react2.default.Component);
 
-	_reactDom2.default.render(_react2.default.createElement(Parent, { status: './get_responses/status.json', routeInfo: './get_responses/get_status_info.json',
-	    messages: './get_responses/messages.json' }), document.getElementById('parent'));
+	_reactDom2.default.render(_react2.default.createElement(Parent, null), document.getElementById('parent'));
 
 /***/ },
 /* 2 */

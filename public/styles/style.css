@@ -62,7 +62,7 @@ a:hover {
 .route-list {
   list-style: none;
   padding: 0;
-    text-align: right;
+    /*text-align: right;*/
     vertical-align: top;
 }
 
@@ -159,7 +159,7 @@ body > footer {
 .side-routes{
     display: inline-block;
     width: 20%;
-    height: 500px;
+    height: 100vh;
     margin-right: 50px;
     vertical-align: text-top;
 }

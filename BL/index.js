@@ -2,8 +2,9 @@ var DAL = require('../DAL');
 var Message = require('../Models/message')
 class BL{
     constructor(){
-        this.dal = new DAL();
         console.log('BL instance');
+        this.dal = new DAL();
+
     }
     getRoutes(){
         let routes = this.dal.getRoutes();
@@ -13,9 +14,15 @@ class BL{
         let info = this.dal.getRoute(id);
         return info;
     }
-    getMessages(id){
+    getMessages(){
+        let messages = this.dal.getMessages();
+        return messages;
+    }
+
+    getMessagesByRouteID(id){
 
     }
+
     getRouteFromId(id){
 
     }

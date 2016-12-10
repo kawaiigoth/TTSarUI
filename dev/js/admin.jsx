@@ -74,18 +74,68 @@ class Parent extends React.Component {
     constructor(props) {
         super(props);
         this.loadData = this.loadData.bind(this);
+        this.openControl = this.openControl.bind(this);
+        this.loadControls = this.loadControls.bind(this);
         this.state = {
             tramRoutes: undefined,
             trollRoutes: undefined,
             info: undefined,
-            messages: undefined
+            messages: undefined,
+            isError: false,
+            isOppened: false
         }
     }
 
+
+    openControl(id) {
+        this.setState({informData: this.loadControls(id), isOppened: true});
+    }
+
+
+    loadControls(id){
+        var self = this;
+        function status(response) {
+            if (response.status >= 200 && response.status < 300) {
+                return Promise.resolve(response)
+            } else {
+                return Promise.reject(new Error(response.statusText))
+            }
+        }
+
+        function json(response) {
+            return response.json()
+        }
+
+        var myHeaders = new Headers();
+        let options = {
+            method : 'GET',
+            headers:  myHeaders,
+            mode: 'cors',
+            cache: 'no-cache'
+        };
+        fetch('api/get-status-info?id=' + id, options)
+            .then(status)
+            .then(json)
+            .then(function (data) {
+                self.setState({info: data});
+            }).catch(function (error) {
+            console.log('statusinfo', error);
+            self.setState({isError:true})
+        });
+
+        fetch('api/messages', options)
+
+            .then(status)
+            .then(json)
+            .then(function (data) {
+                self.setState({messages: data});
+            }).catch(function (error) {
+            console.log('msg', error);
+            self.setState({isError:true})
+        });
+    }
+
     loadData() {
-        var routeInfo = this.props.routeInfo;
-        var messages = this.props.messages;
-        var status_info = this.props.status;
         var self = this;
 
         function status(response) {
@@ -100,7 +150,6 @@ class Parent extends React.Component {
             return response.json()
         }
 
-
         function typeParse(data) {
             var trolls = [],
                 trams = [];
@@ -111,7 +160,7 @@ class Parent extends React.Component {
                         trams.push(route)
                     }
                 }
-            )
+            );
             self.setState({tramRoutes: statusParse(trams), trollRoutes: statusParse(trolls)});
         }
 
@@ -134,33 +183,25 @@ class Parent extends React.Component {
             return d;
         }
 
-        fetch(status_info)
+        var myHeaders = new Headers();
+        let options = {
+            method : 'GET',
+            headers:  myHeaders,
+            mode: 'cors',
+            cache: 'no-cache'
+        };
+
+        fetch('api/status', options)
 
             .then(status)
             .then(json)
             .then(typeParse)
             .catch(function (error) {
-                console.log('Request failed', error);
+                console.log('status', error);
+                self.setState({isError:true})
             });
 
-        fetch(routeInfo)
-            .then(status)
-            .then(json)
-            .then(function (data) {
-                self.setState({info: data});
-            }).catch(function (error) {
-            console.log('Request failed', error);
-        });
 
-        fetch(messages)
-
-            .then(status)
-            .then(json)
-            .then(function (data) {
-                self.setState({messages: data});
-            }).catch(function (error) {
-            console.log('Request failed', error);
-        });
     }
 
     /*    componentWillMount() {
@@ -177,32 +218,58 @@ class Parent extends React.Component {
 
     render() {
 
-
-        if (this.state.info == undefined || this.state.messages == undefined || this.state.tramRoutes == undefined || this.state.trollRoutes == undefined) {
-            return <div>Loading...</div>
+        if(this.state.isError == true){
+            return <div> Sorry, an error occured while loading routes. Try reload page.</div>
         }
 
+        if (this.state.tramRoutes == undefined || this.state.trollRoutes == undefined) {
+            return <div>Loading...</div>
+        }
+        if(this.state.isOppened == true){
+            if(this.state.info !=undefined && this.state.messages != undefined){
+                return (
+                    <div>
+                        <aside className="side-routes">
+                            <Routes route={this.state.trollRoutes}/>
+                            <Routes route={this.state.tramRoutes}/>
+                        </aside>
+                        <section className="main">
+                            <Inform inform={this.state.info} buttons={false}/>
+                            <Control />
+                            <hr />
+                            <Messages classProp="messages_scrollable" messageList={this.state.messages}/>
+                        </section>
+                    </div>
+                );
+            }
+            return (
+                <div>
+                    <aside className="side-routes">
+                        <Routes route={this.state.trollRoutes}/>
+                        <Routes route={this.state.tramRoutes}/>
+                    </aside>
+                </div>
+            );
+        }
 
         return (
             <div>
-                <aside className="side-routes">
-                    <Routes route={this.state.trollRoutes}/>
-                    <Routes route={this.state.tramRoutes}/>
-                </aside>
-                <section className="main">
-                    <Inform inform={this.state.info} buttons={false}/>
-                    <Control />
-                    <hr />
-                    <Messages classProp="messages_scrollable" messageList={this.state.messages}/>
-                </section>
+                <h2>Маршруты</h2>
+                <hr />
+                <h3> Троллейбусы: </h3>
+                <List horizontal={true} routeType="1" routeList={this.state.trollRoutes} action={this.openControl}/>
+                <h3> Трамваи: </h3>
+                <List horizontal={true} routeType="2" routeList={this.state.tramRoutes} action={this.openControl}/>
             </div>
+
         );
+
+
     }
 
 }
 
 ReactDOM.render(
-    <Parent status="./get_responses/status.json" routeInfo='./get_responses/get_status_info.json'
-            messages="./get_responses/messages.json"/>,
+    <Parent/>,
     document.getElementById('parent')
 );
