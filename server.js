@@ -27,7 +27,7 @@ app.use(function (err, req, res, next) {
         next(err);
     } else {
         console.log(err.stack);
-        res.send(500);
+        res.sendStatus(500);
     }
 
 });

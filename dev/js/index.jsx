@@ -55,39 +55,6 @@ class App extends React.Component {
             console.log('Request failed', error);
         });
 
-        function typeParse(data) {
-            var trolls = [],
-                trams = [];
-            data.map(route=> {
-                    if(route.type == 1){
-                        trolls.push(route)
-                    } else {
-                        trams.push(route)
-                    }
-                }
-            );
-            self.setState({tramRoutes: statusParse(trams), trollRoutes: statusParse(trolls)});
-        }
-
-        function statusParse(data) {
-            var d = data;
-            for (var i in d) {
-                switch (d[i].status) {
-                    case 1:
-                        d[i].status = 'normal';
-                        break;
-                    case 2:
-                        d[i].status = 'duty';
-                        break;
-                    case 3:
-                        d[i].status = 'stoped';
-                        break;
-                }
-            }
-
-            return d;
-        }
-
     }
 
 
@@ -165,6 +132,19 @@ class App extends React.Component {
         console.log("I'm mounted!(App)");
     }
 
+
+    componentWillReceiveProps(){
+        console.log("app wiil receive props");
+    }
+
+    componentDidUpdate(){
+        console.log("app updated");
+    }
+
+    ponentWillUnmount(){
+        console.log("app bye =(");
+    }
+
     render() {
         if(this.state.isError == true){
             return <div> Sorry, an error occured while loading routes. Try reload page.</div>
@@ -190,6 +170,7 @@ class App extends React.Component {
             );
         }
         else {
+            console.log("waiting fooor");
             return (
                 <div>
                     <h2>Маршруты</h2>

@@ -37,6 +37,11 @@ module.exports = {
     },
     postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
     plugins : [
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery"
+        }),
         new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
             NODE_ENV : JSON.stringify(NODE_ENV)

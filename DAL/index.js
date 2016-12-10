@@ -1,7 +1,20 @@
 class DAL{
     constructor(){
+        console.log("dal inst");
+    }
+
+    insertMessage(message){
+        if(Object.keys(message).length === 0){
+
+            return false;
+        }
+        else{
+
+            return true;
+        }
 
     }
+
     getRoutes(){
         let routes = [
             {

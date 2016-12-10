@@ -21950,6 +21950,13 @@ webpackJsonp([0,3],[
 	            });
 	        }
 	    }, {
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate(nextProps, nextState) {
+	            if (this.props == nextProps) {
+	                return false;
+	            } else return true;
+	        }
+	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            console.log("list did mounted");

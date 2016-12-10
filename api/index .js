@@ -3,9 +3,18 @@ var app = express();
 var BL = require('../BL');
 var router = express.Router();
 var multer = require('multer');
-var upload = multer({dest:'uploaded_images/'}).fields([{name : "text", maxCount: 1}, {name : "imgUpload", maxCount: 1},
-    {name: "id", maxCount: 1}, {name: "latitude", maxCount: 1}, {name: "longtitude", maxCount: 1}]);
-var bodyParser = require('body-parser');
+var pattExt=/\.[0-9a-z]{1,5}$/i;
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploaded_images')
+    },
+    filename: function (req, file, cb) {
+        let fileExt = file.originalname.match(pattExt);
+        cb(null, file.fieldname + '-' + Date.now()+ fileExt)
+    }
+});
+var upload = multer({storage: storage}).single('imgUpload');
+
 
 var bl = new BL();
 router.get('/status', requestStatus);
@@ -36,5 +45,11 @@ function sendMessage(req, res) {
     console.log('sending');
     console.log(req.body);
     console.log(req.file);
+    if(bl.sendMessage(req.body, req.file)) {
+        res.status(200).send("ok");
+    }
+    else {
+        res.status(500).send("error");
+    }
 }
 module.exports = router;

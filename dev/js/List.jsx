@@ -22,6 +22,15 @@ export class List extends React.Component {
 
     }
 
+    shouldComponentUpdate(nextProps,nextState){
+        if(this.props == nextProps)
+        {
+            return false;
+        }
+        else return true;
+
+    };
+
     componentDidMount(){
         console.log("list did mounted");
     }
