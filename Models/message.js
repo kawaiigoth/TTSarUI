@@ -1,11 +1,11 @@
 var uuid = require('node-uuid');
 class Message {
     constructor(text, geo, date, r_id, photo, status, id) {
-            this.text = text;
-            this.geo = geo;
+            this.message = text;
+            this.geotag = geo;
             this.photo = photo;
-            this.date = date || new Date();
-            this.id = id || uuid.v4();
+            this.datetime = date || new Date();
+            this.message_id = id || uuid.v4();
             this.r_id = r_id;
             this.status = status || 'unreaded';
     }

@@ -13,25 +13,37 @@ export class Message extends React.Component {
         }
 
         let message = this.props.message;
+        if (message.photo != undefined){
+            return (
+                <div id={message.message_id} className={"message " + message.status}>
+
+                    <div className="message__info">
+                        <div className="message__text">
+                            <span>{message.message}</span>
+                        </div>
+                        <div className="message__time">
+                            <span className="message__time">Дата: {getDate(message.datetime)}</span>
+                        </div>
+                        <div className="message__photo">
+                            <span className="message__time"><a href={message.photo}>Фото</a></span>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
         return (
             <div id={message.message_id} className={"message " + message.status}>
-                <div className="message__image">
-                    <a className="photo" href={message.photo.replace("thumbs", "fullsize")}
-                       title={message.message}>
-                        <img src={message.photo} width="50" height="50" alt="photo"/>
-                    </a>
-                </div>
 
                 <div className="message__info">
                     <div className="message__text">
                         <span>{message.message}</span>
                     </div>
-                    {/*<span class="users-messages__message__info__name">{message.author}:</span>*/}
                     <div className="message__time">
-                        <span className="message__time">{getDate(message.datetime)}</span>
+                        <span className="message__time">Дата: {getDate(message.datetime)}</span>
                     </div>
                 </div>
             </div>
         )
+
     }
 }

@@ -9,7 +9,7 @@ export class Control extends React.Component {
             file: undefined,
             text: undefined,
             id: undefined,
-            imgInfo: "принимаются файлы формата .jpg"
+            imageInfo: "принимаются файлы формата .jpg"
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.ajaxCall = this.ajaxCall.bind(this);
@@ -96,15 +96,15 @@ export class Control extends React.Component {
                     </div>
                 </fieldset>
                 <div className="form-group">
-                    <label>Информация о маршруте
+                    <label style={{width: 100 + '%'}}>Информация о маршруте
                     <textarea onChange={this.handleInfoChange} placeholder="Информация о маршруте" className="form-control control-form__textarea"  rows="3"></textarea>
                     </label>
                 </div>
                 <div className="form-group">
-                    <label className="btn btn-default">Загрузить фотографию
+                    <label style={{display: 'block', width:300+'px'}}className="btn btn-default">Загрузить фотографию
                     <input onChange={this.handleImageChange} type="file" style={{display:'none'}} accept="image/*" className="form-control-file" id="fileUpload"/>
                     </label>
-                    <small id="fileHelp" className="form-text text-muted">{this.state.imgInfo}
+                    <small id="fileHelp" className="form-text text-muted">{this.state.imageInfo}
                     </small>
                 </div>
                 <button type="submit" className="btn btn-primary">Сохранить изменения</button>

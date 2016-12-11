@@ -22174,19 +22174,51 @@ webpackJsonp([0,3],[
 	            }
 
 	            var message = this.props.message;
+	            if (message.photo != undefined) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { id: message.message_id, className: "message " + message.status },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'message__info' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'message__text' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                null,
+	                                message.message
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'message__time' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'message__time' },
+	                                '\u0414\u0430\u0442\u0430: ',
+	                                getDate(message.datetime)
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'message__photo' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'message__time' },
+	                                _react2.default.createElement(
+	                                    'a',
+	                                    { href: message.photo },
+	                                    '\u0424\u043E\u0442\u043E'
+	                                )
+	                            )
+	                        )
+	                    )
+	                );
+	            }
 	            return _react2.default.createElement(
 	                'div',
 	                { id: message.message_id, className: "message " + message.status },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'message__image' },
-	                    _react2.default.createElement(
-	                        'a',
-	                        { className: 'photo', href: message.photo.replace("thumbs", "fullsize"),
-	                            title: message.message },
-	                        _react2.default.createElement('img', { src: message.photo, width: '50', height: '50', alt: 'photo' })
-	                    )
-	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'message__info' },
@@ -22205,6 +22237,7 @@ webpackJsonp([0,3],[
 	                        _react2.default.createElement(
 	                            'span',
 	                            { className: 'message__time' },
+	                            '\u0414\u0430\u0442\u0430: ',
 	                            getDate(message.datetime)
 	                        )
 	                    )
@@ -22254,7 +22287,7 @@ webpackJsonp([0,3],[
 	            file: undefined,
 	            text: undefined,
 	            id: undefined,
-	            imgInfo: "принимаются файлы формата .jpg"
+	            imageInfo: "принимаются файлы формата .jpg"
 	        };
 	        _this.handleSubmit = _this.handleSubmit.bind(_this);
 	        _this.ajaxCall = _this.ajaxCall.bind(_this);
@@ -22374,7 +22407,7 @@ webpackJsonp([0,3],[
 	                    { className: 'form-group' },
 	                    _react2.default.createElement(
 	                        'label',
-	                        null,
+	                        { style: { width: 100 + '%' } },
 	                        '\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u0435',
 	                        _react2.default.createElement('textarea', { onChange: this.handleInfoChange, placeholder: '\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u0435', className: 'form-control control-form__textarea', rows: '3' })
 	                    )
@@ -22384,14 +22417,14 @@ webpackJsonp([0,3],[
 	                    { className: 'form-group' },
 	                    _react2.default.createElement(
 	                        'label',
-	                        { className: 'btn btn-default' },
+	                        { style: { display: 'block', width: 300 + 'px' }, className: 'btn btn-default' },
 	                        '\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044E',
 	                        _react2.default.createElement('input', { onChange: this.handleImageChange, type: 'file', style: { display: 'none' }, accept: 'image/*', className: 'form-control-file', id: 'fileUpload' })
 	                    ),
 	                    _react2.default.createElement(
 	                        'small',
 	                        { id: 'fileHelp', className: 'form-text text-muted' },
-	                        this.state.imgInfo
+	                        this.state.imageInfo
 	                    )
 	                ),
 	                _react2.default.createElement(

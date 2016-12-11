@@ -11,7 +11,7 @@ class DAL{
             "message": "Some information about route status",
             "status": "unread",
             "geotag": [ 10, 20 ],
-            "photo": "../dev/get_responses/image_db/thumbs/image.png"},
+            "photo": undefined},
             {"message_id": 2,
                 "datetime": "2016-10-23T13:25:43.511Z",
                 "message": "Some information about route status",
