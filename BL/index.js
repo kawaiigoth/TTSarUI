@@ -30,7 +30,8 @@ class BL{
 
     }
     sendMessage(body,file){
-        let message = new Message(body.text,[body.latitude,body.longitude], new Date(), body.id, file.path, 'unreaded');
+        let filePath = file? file.path: undefined;
+        let message = new Message(body.text,[body.latitude,body.longitude], new Date(), body.id, filePath, 'unreaded');
 
         return this.dal.insertMessage(message);
     }

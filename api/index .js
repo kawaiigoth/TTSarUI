@@ -54,6 +54,7 @@ function requestInfo(req,res){
 }
 
 function sendMessage(req, res) {
+
     console.log('sending');
     console.log(req.body);
     console.log(req.file);

@@ -105,8 +105,7 @@ webpackJsonp([0,3],[
 	    }, {
 	        key: 'render',
 	        value: function render() {
-
-	            return _react2.default.createElement(_List.List, { classProp: 'route-list_inline route-list_scrollable', horizontal: false, routeList: this.state.routes });
+	            return _react2.default.createElement(_List.List, { classProp: 'route-list_inline route-list_scrollable', horizontal: false, routeList: this.state.routes, action: this.props.action });
 	        }
 	    }]);
 
@@ -281,8 +280,8 @@ webpackJsonp([0,3],[
 	                        _react2.default.createElement(
 	                            'aside',
 	                            { className: 'side-routes' },
-	                            _react2.default.createElement(Routes, { route: this.state.trollRoutes }),
-	                            _react2.default.createElement(Routes, { route: this.state.tramRoutes })
+	                            _react2.default.createElement(Routes, { route: this.state.trollRoutes, action: this.openControl }),
+	                            _react2.default.createElement(Routes, { route: this.state.tramRoutes, action: this.openControl })
 	                        ),
 	                        _react2.default.createElement(
 	                            'section',
@@ -300,8 +299,8 @@ webpackJsonp([0,3],[
 	                    _react2.default.createElement(
 	                        'aside',
 	                        { className: 'side-routes' },
-	                        _react2.default.createElement(Routes, { route: this.state.trollRoutes }),
-	                        _react2.default.createElement(Routes, { route: this.state.tramRoutes })
+	                        _react2.default.createElement(Routes, { route: this.state.trollRoutes, action: this.openControl }),
+	                        _react2.default.createElement(Routes, { route: this.state.tramRoutes, action: this.openControl })
 	                    )
 	                );
 	            }
@@ -22040,26 +22039,6 @@ webpackJsonp([0,3],[
 	            } else return true;
 	        }
 	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            console.log("list did mounted");
-	        }
-	    }, {
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps() {
-	            console.log("list wiil receive props");
-	        }
-	    }, {
-	        key: 'componentDidUpdate',
-	        value: function componentDidUpdate() {
-	            console.log("list updated");
-	        }
-	    }, {
-	        key: 'ponentWillUnmount',
-	        value: function ponentWillUnmount() {
-	            console.log("list bye =(");
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var routes = this.renderRoutes(this.props),
@@ -22268,22 +22247,93 @@ webpackJsonp([0,3],[
 	    function Control(props) {
 	        _classCallCheck(this, Control);
 
-	        return _possibleConstructorReturn(this, (Control.__proto__ || Object.getPrototypeOf(Control)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (Control.__proto__ || Object.getPrototypeOf(Control)).call(this, props));
+
+	        _this.state = {
+	            routeState: undefined,
+	            file: undefined,
+	            text: undefined,
+	            id: undefined,
+	            imgInfo: "принимаются файлы формата .jpg"
+	        };
+	        _this.handleSubmit = _this.handleSubmit.bind(_this);
+	        _this.ajaxCall = _this.ajaxCall.bind(_this);
+	        _this.handleImageChange = _this.handleImageChange.bind(_this);
+	        _this.handleRadioCHange = _this.handleRadioCHange.bind(_this);
+	        _this.handleInfoChange = _this.handleInfoChange.bind(_this);
+	        return _this;
 	    }
 
 	    _createClass(Control, [{
+	        key: 'ajaxCall',
+	        value: function ajaxCall(fd) {
+	            console.log(fd.get('text'));
+	            console.log(fd.get('routeState'));
+	        }
+	    }, {
+	        key: 'handleSubmit',
+	        value: function handleSubmit(e) {
+	            e.preventDefault();
+	            var self = this;
+	            var fd = new FormData();
+	            fd.append('routeState', this.state.routeState);
+	            fd.append('imgUpload', this.state.file);
+	            fd.append('text', this.state.text);
+	            fd.append('id', this.props.id);
+	            self.ajaxCall(fd);
+	            return false;
+	        }
+	    }, {
+	        key: 'handleRadioCHange',
+	        value: function handleRadioCHange(e) {
+
+	            this.setState({ routeState: e.currentTarget.value });
+	        }
+	    }, {
+	        key: 'handleInfoChange',
+	        value: function handleInfoChange(e) {
+	            this.setState({ text: e.target.value });
+	        }
+	    }, {
+	        key: 'handleImageChange',
+	        value: function handleImageChange(e) {
+	            var _this2 = this;
+
+	            e.preventDefault();
+	            var reader = new FileReader();
+	            var file = e.target.files[0];
+	            reader.onerror = function () {
+	                _this2.setState({
+	                    imageInfo: "Ошибка загрузки"
+	                });
+	            };
+	            reader.onprogress = function () {
+	                _this2.setState({
+	                    imageInfo: "Загрузка"
+	                });
+	            };
+	            reader.onloadend = function () {
+	                _this2.setState({
+	                    file: file,
+	                    imageInfo: "Завершено!"
+	                });
+	            };
+
+	            reader.readAsDataURL(file);
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'form',
-	                { className: 'control-form' },
+	                { className: 'control-form', onSubmit: this.handleSubmit },
 	                _react2.default.createElement(
 	                    'fieldset',
 	                    { className: 'form-group' },
 	                    _react2.default.createElement(
 	                        'legend',
 	                        null,
-	                        '\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0441\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435 \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u0430'
+	                        '\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0441\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435\u043C \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u0430'
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
@@ -22291,9 +22341,9 @@ webpackJsonp([0,3],[
 	                        _react2.default.createElement(
 	                            'label',
 	                            { className: 'form-check-label' },
-	                            _react2.default.createElement('input', { type: 'radio', className: 'form-check-input', name: 'routeState', id: 'normalRad',
-	                                value: 'normal', checked: true }),
-	                            '\u041C\u0430\u0440\u0448\u0440\u0443\u0442 \u0434\u0432\u0438\u0433\u0430\u0435\u0442\u0441\u044F \u043F\u043E \u0440\u0430\u0441\u043F\u0441\u0430\u043D\u0438\u044E'
+	                            _react2.default.createElement('input', { onChange: this.handleRadioCHange, checked: this.state.routeState === "normal", type: 'radio', className: 'form-check-input', name: 'routeState',
+	                                value: 'normal' }),
+	                            '\u041C\u0430\u0440\u0448\u0440\u0443\u0442 \u0434\u0432\u0438\u0433\u0430\u0435\u0442\u0441\u044F \u043F\u043E \u0440\u0430\u0441\u043F\u0438\u0441\u0430\u043D\u0438\u044E'
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -22302,7 +22352,7 @@ webpackJsonp([0,3],[
 	                        _react2.default.createElement(
 	                            'label',
 	                            { className: 'form-check-label' },
-	                            _react2.default.createElement('input', { type: 'radio', className: 'form-check-input', name: 'routeState', id: 'dutyRad',
+	                            _react2.default.createElement('input', { onChange: this.handleRadioCHange, checked: this.state.routeState === "duty", type: 'radio', className: 'form-check-input', name: 'routeState',
 	                                value: 'duty' }),
 	                            '\u041C\u0430\u0440\u0448\u0440\u0443\u0442 \u0432 \u0434\u0435\u0436\u0443\u0440\u043D\u043E\u043C \u0440\u0435\u0436\u0438\u043C\u0435'
 	                        )
@@ -22313,7 +22363,7 @@ webpackJsonp([0,3],[
 	                        _react2.default.createElement(
 	                            'label',
 	                            { className: 'form-check-label' },
-	                            _react2.default.createElement('input', { type: 'radio', className: 'form-check-input', name: 'routeState', id: 'stopedRad',
+	                            _react2.default.createElement('input', { onChange: this.handleRadioCHange, checked: this.state.routeState === "stoped", type: 'radio', className: 'form-check-input', name: 'routeState',
 	                                value: 'stoped' }),
 	                            '\u041C\u0430\u0440\u0448\u0440\u0443\u0442 \u043D\u0435 \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442'
 	                        )
@@ -22324,24 +22374,24 @@ webpackJsonp([0,3],[
 	                    { className: 'form-group' },
 	                    _react2.default.createElement(
 	                        'label',
-	                        { htmlFor: 'routeComment' },
-	                        '\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u0435'
-	                    ),
-	                    _react2.default.createElement('textarea', { placeholder: '\u0422\u0430 \u0441\u0430\u043C\u0430\u044F \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F, \u0447\u0442\u043E \u043F\u0438\u0448\u0435\u0442\u0441\u044F \u043F\u0440\u0438 \u043D\u0430\u0436\u0430\u0442\u0438\u0438 \u043D\u0430 \u043A\u043D\u043E\u043F\u043E\u0447\u043A\u0443', className: 'form-control control-form__textarea', id: 'routeComment', rows: '3' })
+	                        null,
+	                        '\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u0435',
+	                        _react2.default.createElement('textarea', { onChange: this.handleInfoChange, placeholder: '\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u0435', className: 'form-control control-form__textarea', rows: '3' })
+	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'form-group' },
 	                    _react2.default.createElement(
 	                        'label',
-	                        { htmlFor: 'fileUpload' },
-	                        '\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044E'
+	                        { className: 'btn btn-default' },
+	                        '\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044E',
+	                        _react2.default.createElement('input', { onChange: this.handleImageChange, type: 'file', style: { display: 'none' }, accept: 'image/*', className: 'form-control-file', id: 'fileUpload' })
 	                    ),
-	                    _react2.default.createElement('input', { type: 'file', accept: 'image/*', className: 'form-control-file', id: 'fileUpload' }),
 	                    _react2.default.createElement(
 	                        'small',
 	                        { id: 'fileHelp', className: 'form-text text-muted' },
-	                        '\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0438 \u0444\u043E\u0440\u043C\u0430\u0442\u0430 \u0442\u0430\u043A\u043E\u0433\u043E\u0442\u043E, \u0440\u0430\u0437\u043C\u0435\u0440\u0430 - \u0432\u043E\u0442\u0442\u0430\u043A\u043E\u0433\u043E\u0442\u0430.'
+	                        this.state.imgInfo
 	                    )
 	                ),
 	                _react2.default.createElement(

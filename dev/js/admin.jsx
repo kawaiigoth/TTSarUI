@@ -61,9 +61,8 @@ class Routes extends React.Component {
     }
 
     render() {
-
         return (
-            <List classProp="route-list_inline route-list_scrollable" horizontal={false} routeList={this.state.routes}/>
+            <List classProp="route-list_inline route-list_scrollable" horizontal={false} routeList={this.state.routes} action={this.props.action}/>
         );
     }
 
@@ -230,8 +229,8 @@ class Parent extends React.Component {
                 return (
                     <div>
                         <aside className="side-routes">
-                            <Routes route={this.state.trollRoutes}/>
-                            <Routes route={this.state.tramRoutes}/>
+                            <Routes route={this.state.trollRoutes} action={this.openControl}/>
+                            <Routes route={this.state.tramRoutes} action={this.openControl}/>
                         </aside>
                         <section className="main">
                             <Inform inform={this.state.info} buttons={false}/>
@@ -245,8 +244,8 @@ class Parent extends React.Component {
             return (
                 <div>
                     <aside className="side-routes">
-                        <Routes route={this.state.trollRoutes}/>
-                        <Routes route={this.state.tramRoutes}/>
+                        <Routes route={this.state.trollRoutes} action={this.openControl}/>
+                        <Routes route={this.state.tramRoutes} action={this.openControl}/>
                     </aside>
                 </div>
             );
