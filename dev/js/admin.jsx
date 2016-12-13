@@ -75,11 +75,13 @@ class Parent extends React.Component {
         this.loadData = this.loadData.bind(this);
         this.openControl = this.openControl.bind(this);
         this.loadControls = this.loadControls.bind(this);
+        this.transferData = this.transferData.bind(this);
         this.state = {
             tramRoutes: undefined,
             trollRoutes: undefined,
             info: undefined,
             messages: undefined,
+            transferData: undefined,
             isError: false,
             isOppened: false
         }
@@ -122,16 +124,11 @@ class Parent extends React.Component {
             self.setState({isError:true})
         });
 
-        fetch('api/messages', options)
 
-            .then(status)
-            .then(json)
-            .then(function (data) {
-                self.setState({messages: data});
-            }).catch(function (error) {
-            console.log('msg', error);
-            self.setState({isError:true})
-        });
+    }
+
+    transferData(message,photoPath){
+        this.setState({transferData: [message,photoPath]})
     }
 
     loadData() {
@@ -190,6 +187,17 @@ class Parent extends React.Component {
             cache: 'no-cache'
         };
 
+        fetch('api/messages', options)
+
+            .then(status)
+            .then(json)
+            .then(function (data) {
+                self.setState({messages: data});
+            }).catch(function (error) {
+            console.log('msg', error);
+            self.setState({isError:true})
+        });
+
         fetch('api/status', options)
 
             .then(status)
@@ -234,9 +242,9 @@ class Parent extends React.Component {
                         </aside>
                         <section className="main">
                             <Inform inform={this.state.info} buttons={false}/>
-                            <Control />
+                            <Control transferData={this.state.transferData? this.state.transferData: undefined} />
                             <hr />
-                            <Messages classProp="messages_scrollable" messageList={this.state.messages}/>
+                            <Messages action={this.transferData} classProp="messages_scrollable" messageList={this.state.messages}/>
                         </section>
                     </div>
                 );
@@ -250,7 +258,21 @@ class Parent extends React.Component {
                 </div>
             );
         }
+        if(this.state.messages !=undefined){
+            return (
+                <div>
+                    <h2>Маршруты</h2>
+                    <hr />
+                    <h3> Троллейбусы: </h3>
+                    <List horizontal={true} routeType="1" routeList={this.state.trollRoutes} action={this.openControl}/>
+                    <h3> Трамваи: </h3>
+                    <List horizontal={true} routeType="2" routeList={this.state.tramRoutes} action={this.openControl}/>
+                    <hr />
+                    <Messages classProp="messages_scrollable" messageList={this.state.messages}/>
+                </div>
 
+            );
+        }
         return (
             <div>
                 <h2>Маршруты</h2>
@@ -262,6 +284,7 @@ class Parent extends React.Component {
             </div>
 
         );
+
 
 
     }

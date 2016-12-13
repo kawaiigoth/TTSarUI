@@ -23,7 +23,7 @@ let classProp = this.props.classProp ? this.props.classProp : "";
                 <ul className={"messages " + classProp}>
                     {this.state.messages.map(message =>
                         <li key={message.message_id} className="messages__element">
-                            <Message message={message}/>
+                            <Message action={this.props.action} message={message}/>
                         </li>
                     )}
 

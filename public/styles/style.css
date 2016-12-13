@@ -181,7 +181,9 @@ body > footer {
 }
 
 .message{
+    display: table;
     height: 60px;
+    width:100%;
     border: 3px solid #f0eded;
 }
 
@@ -191,8 +193,14 @@ body > footer {
 }
 
 .message__info{
-    display: inline-block;
-    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.message__actions{
+    display: table-cell;
+    vertical-align: middle;
+
 }
 
 .message__text{

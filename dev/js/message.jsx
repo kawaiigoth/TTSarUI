@@ -28,6 +28,9 @@ export class Message extends React.Component {
                             <span className="message__time"><a href={message.photo}>Фото</a></span>
                         </div>
                     </div>
+                    <div className="message__actions">
+                        <span onClick={()=>{this.props.action(message.message, message.photo)}} className="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    </div>
                 </div>
             )
         }
@@ -41,6 +44,9 @@ export class Message extends React.Component {
                     <div className="message__time">
                         <span className="message__time">Дата: {getDate(message.datetime)}</span>
                     </div>
+                </div>
+                <div className="message__actions">
+                    <span onClick={()=>{this.props.action(message.message)}} className="glyphicon glyphicon-star" aria-hidden="true"></span>
                 </div>
             </div>
         )

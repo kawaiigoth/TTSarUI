@@ -68,6 +68,10 @@ export class Control extends React.Component {
         reader.readAsDataURL(file);
     }
 
+    componentWillReceiveProps(){
+        this.setState({text:this.props.transferData[0]});
+    }
+
     render() {
         return (
             <form className="control-form" onSubmit={this.handleSubmit}>
@@ -100,13 +104,13 @@ export class Control extends React.Component {
                     <textarea onChange={this.handleInfoChange} placeholder="Информация о маршруте" className="form-control control-form__textarea"  rows="3"></textarea>
                     </label>
                 </div>
-                <div className="form-group">
+               {/* <div className="form-group">
                     <label style={{display: 'block', width:300+'px'}}className="btn btn-default">Загрузить фотографию
                     <input onChange={this.handleImageChange} type="file" style={{display:'none'}} accept="image/*" className="form-control-file" id="fileUpload"/>
                     </label>
                     <small id="fileHelp" className="form-text text-muted">{this.state.imageInfo}
                     </small>
-                </div>
+                </div>*/}
                 <button type="submit" className="btn btn-primary">Сохранить изменения</button>
             </form>
 

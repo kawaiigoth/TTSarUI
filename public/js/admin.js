@@ -123,11 +123,13 @@ webpackJsonp([0,3],[
 	        _this2.loadData = _this2.loadData.bind(_this2);
 	        _this2.openControl = _this2.openControl.bind(_this2);
 	        _this2.loadControls = _this2.loadControls.bind(_this2);
+	        _this2.transferData = _this2.transferData.bind(_this2);
 	        _this2.state = {
 	            tramRoutes: undefined,
 	            trollRoutes: undefined,
 	            info: undefined,
 	            messages: undefined,
+	            transferData: undefined,
 	            isError: false,
 	            isOppened: false
 	        };
@@ -168,13 +170,11 @@ webpackJsonp([0,3],[
 	                console.log('statusinfo', error);
 	                self.setState({ isError: true });
 	            });
-
-	            fetch('api/messages', options).then(status).then(json).then(function (data) {
-	                self.setState({ messages: data });
-	            }).catch(function (error) {
-	                console.log('msg', error);
-	                self.setState({ isError: true });
-	            });
+	        }
+	    }, {
+	        key: 'transferData',
+	        value: function transferData(message, photoPath) {
+	            this.setState({ transferData: [message, photoPath] });
 	        }
 	    }, {
 	        key: 'loadData',
@@ -233,6 +233,13 @@ webpackJsonp([0,3],[
 	                cache: 'no-cache'
 	            };
 
+	            fetch('api/messages', options).then(status).then(json).then(function (data) {
+	                self.setState({ messages: data });
+	            }).catch(function (error) {
+	                console.log('msg', error);
+	                self.setState({ isError: true });
+	            });
+
 	            fetch('api/status', options).then(status).then(json).then(typeParse).catch(function (error) {
 	                console.log('status', error);
 	                self.setState({ isError: true });
@@ -287,9 +294,9 @@ webpackJsonp([0,3],[
 	                            'section',
 	                            { className: 'main' },
 	                            _react2.default.createElement(_Inform.Inform, { inform: this.state.info, buttons: false }),
-	                            _react2.default.createElement(_control.Control, null),
+	                            _react2.default.createElement(_control.Control, { transferData: this.state.transferData ? this.state.transferData : undefined }),
 	                            _react2.default.createElement('hr', null),
-	                            _react2.default.createElement(_messages.Messages, { classProp: 'messages_scrollable', messageList: this.state.messages })
+	                            _react2.default.createElement(_messages.Messages, { action: this.transferData, classProp: 'messages_scrollable', messageList: this.state.messages })
 	                        )
 	                    );
 	                }
@@ -304,7 +311,32 @@ webpackJsonp([0,3],[
 	                    )
 	                );
 	            }
-
+	            if (this.state.messages != undefined) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        'h2',
+	                        null,
+	                        '\u041C\u0430\u0440\u0448\u0440\u0443\u0442\u044B'
+	                    ),
+	                    _react2.default.createElement('hr', null),
+	                    _react2.default.createElement(
+	                        'h3',
+	                        null,
+	                        ' \u0422\u0440\u043E\u043B\u043B\u0435\u0439\u0431\u0443\u0441\u044B: '
+	                    ),
+	                    _react2.default.createElement(_List.List, { horizontal: true, routeType: '1', routeList: this.state.trollRoutes, action: this.openControl }),
+	                    _react2.default.createElement(
+	                        'h3',
+	                        null,
+	                        ' \u0422\u0440\u0430\u043C\u0432\u0430\u0438: '
+	                    ),
+	                    _react2.default.createElement(_List.List, { horizontal: true, routeType: '2', routeList: this.state.tramRoutes, action: this.openControl }),
+	                    _react2.default.createElement('hr', null),
+	                    _react2.default.createElement(_messages.Messages, { classProp: 'messages_scrollable', messageList: this.state.messages })
+	                );
+	            }
 	            return _react2.default.createElement(
 	                'div',
 	                null,
@@ -22105,6 +22137,8 @@ webpackJsonp([0,3],[
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+
 	            var classProp = this.props.classProp ? this.props.classProp : "";
 	            if (this.state.messages != undefined) {
 	                return _react2.default.createElement(
@@ -22114,7 +22148,7 @@ webpackJsonp([0,3],[
 	                        return _react2.default.createElement(
 	                            'li',
 	                            { key: message.message_id, className: 'messages__element' },
-	                            _react2.default.createElement(_message.Message, { message: message })
+	                            _react2.default.createElement(_message.Message, { action: _this2.props.action, message: message })
 	                        );
 	                    })
 	                );
@@ -22168,6 +22202,8 @@ webpackJsonp([0,3],[
 	    _createClass(Message, [{
 	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+
 	            function getDate(date) {
 	                var options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
 	                return new Date(date).toLocaleDateString('ru-RU', options);
@@ -22213,6 +22249,13 @@ webpackJsonp([0,3],[
 	                                )
 	                            )
 	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'message__actions' },
+	                        _react2.default.createElement('span', { onClick: function onClick() {
+	                                _this2.props.action(message.message, message.photo);
+	                            }, className: 'glyphicon glyphicon-star', 'aria-hidden': 'true' })
 	                    )
 	                );
 	            }
@@ -22241,6 +22284,13 @@ webpackJsonp([0,3],[
 	                            getDate(message.datetime)
 	                        )
 	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'message__actions' },
+	                    _react2.default.createElement('span', { onClick: function onClick() {
+	                            _this2.props.action(message.message);
+	                        }, className: 'glyphicon glyphicon-star', 'aria-hidden': 'true' })
 	                )
 	            );
 	        }
@@ -22355,6 +22405,16 @@ webpackJsonp([0,3],[
 	            reader.readAsDataURL(file);
 	        }
 	    }, {
+	        key: 'componentDiDMount',
+	        value: function componentDiDMount() {
+	            console.log('Mounted', this.props.transferData);
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps() {
+	            console.log('Props', this.props.transferData);
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -22410,21 +22470,6 @@ webpackJsonp([0,3],[
 	                        { style: { width: 100 + '%' } },
 	                        '\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u0435',
 	                        _react2.default.createElement('textarea', { onChange: this.handleInfoChange, placeholder: '\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u0435', className: 'form-control control-form__textarea', rows: '3' })
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'form-group' },
-	                    _react2.default.createElement(
-	                        'label',
-	                        { style: { display: 'block', width: 300 + 'px' }, className: 'btn btn-default' },
-	                        '\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044E',
-	                        _react2.default.createElement('input', { onChange: this.handleImageChange, type: 'file', style: { display: 'none' }, accept: 'image/*', className: 'form-control-file', id: 'fileUpload' })
-	                    ),
-	                    _react2.default.createElement(
-	                        'small',
-	                        { id: 'fileHelp', className: 'form-text text-muted' },
-	                        this.state.imageInfo
 	                    )
 	                ),
 	                _react2.default.createElement(
