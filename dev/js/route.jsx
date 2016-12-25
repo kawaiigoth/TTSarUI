@@ -9,7 +9,7 @@ export class View extends React.Component{
         let routeBox = this.props.style ? "route-box " + this.props.style : "route-box";
         if(this.props.action){
             return(
-                <div id={this.props.type+"_"+this.props.way} className={routeBox}
+                <div id={this.props.id+"_"+this.props.way} className={routeBox}
                      onClick={()=>{this.props.action(this.props.type+"_"+this.props.way)}} >
                     <div className={"route-box__inner " + this.props.status}>
                         <div className="route-box__table">

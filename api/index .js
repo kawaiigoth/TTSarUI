@@ -3,6 +3,7 @@ var app = express();
 var BL = require('../BL');
 var router = express.Router();
 var multer = require('multer');
+var loger = require('../libs/loger')(module);
 var pattExt=/\.[0-9a-z]{1,5}$/i;
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -33,24 +34,27 @@ function requestMessages(req,res){
 }
 
 function requestStatus(req, res) {
-    let stat = bl.getRoutes();
-    if(stat){
-        res.status(200).send(stat)
-    }
-    else{
-        res.status(500).send('error');
-    }
-
+    bl.getRoutes(function (routes) {
+        if(routes){
+            res.status(200).send(routes);
+        }
+        else
+        {
+            res.sendStatus(500);
+        }
+    });
 }
 
 function requestInfo(req,res){
-    let stat = bl.getRoute(req.query.id);
-    if(stat){
-        res.status(200).send(stat)
-    }
-    else{
-        res.status(500).send('error');
-    }
+    bl.getRoute(req.query.id, function (route) {
+        if(route){
+            res.status(200).send(routes);
+        }
+        else
+        {
+            res.sendStatus(500);
+        }
+    });
 }
 
 function sendMessage(req, res) {

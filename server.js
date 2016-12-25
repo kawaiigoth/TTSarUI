@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var route_status = require('./api/index ');
+var loger = require('./libs/loger')(module);
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/dev'));
 app.use(express.static(__dirname + '/api'));
@@ -23,15 +24,14 @@ app.use(function (err, req, res, next) {
     "use strict";
     if (process.env.NODE_ENV == 'development') {
 
-        console.log(err.stack);
+        loger.error(err.stack);
         next(err);
     } else {
-        console.log(err.stack);
+        loger.error(err.stack);
         res.sendStatus(500);
     }
 
 });
 
 app.listen(app.get('port'));
-
-console.log("Running at Port " + app.get('port'));
+loger.info("Running at Port " + app.get('port'));
